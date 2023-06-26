@@ -9,7 +9,6 @@ export const load: PageServerLoad = async function({locals}) {
 		
 	}
 	let dataTrainings = await trainings.find({date: {$lt: new Date()}}).sort({date: -1}).toArray();
-	console.log(dataTrainings);	
 
 	// Formatting Date and Hour
 	for (let index = 0; index < dataTrainings.length; index++) {
