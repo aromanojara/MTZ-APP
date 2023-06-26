@@ -7,8 +7,6 @@ import { redirect } from "@sveltejs/kit";
 export const load: PageServerLoad = async function({cookies, locals, request}) {
 
 	//Secure route after jwt is generated
-	console.log(cookies.get("jwt"));
-	
 
 	let dataTrainings = await trainings.find({date: {$gte: new Date()}}).sort({date: 1}).toArray();
 

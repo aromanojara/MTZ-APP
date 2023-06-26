@@ -61,8 +61,6 @@ export const GET = async ({url, cookies})=>{
 	const user = oAuth2Client.credentials;
 	cookies.set('jwt', user.id_token, {httpOnly: true, maxAge: 60*60*24, sameSite:'strict'})
 	// console.log(user);
-	console.log(cookies.get("jwt"));
-	
 
 	const data = await getUserData(user.access_token);
 
