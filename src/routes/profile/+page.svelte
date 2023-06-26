@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
     import { loop_guard } from 'svelte/internal';
+	import { fade } from "svelte/transition";
 
 	export let data;
 	$: ({users} = data);
@@ -19,7 +20,7 @@
 		<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Perfil</p>
 	</div>
 	
-	<div class="form_container">
+	<div in:fade class="form_container">
 		<form action="" method="post">
 			<div class="form_group">
 

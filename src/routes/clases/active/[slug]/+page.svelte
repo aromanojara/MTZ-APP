@@ -1,18 +1,17 @@
 <script lang="ts">
     import { loop_guard } from 'svelte/internal';
 	import { page } from '$app/stores';
+	import { fade } from "svelte/transition";
 
 	export let data;
 	$: ({trainings} = data);	
 
 	let localsData = data.localsData;
 	
-	let quota = parseInt(data.trainings[0].quota);
 	let players = data.trainings[0].players
 	let playersWaitList = data.trainings[0].playersWaitList
 	let attendance = parseInt(data.trainings[0].attendance);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
-	let nameWaitlist = "";
 	let joined = data.joined;
 	let joinedWaitlist = data.joinedWaitlist;
 
@@ -27,7 +26,7 @@
 	<title>Clase ─ MTZ</title>
 </head>
 
-<div class="index">
+<div in:fade class="index">
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		

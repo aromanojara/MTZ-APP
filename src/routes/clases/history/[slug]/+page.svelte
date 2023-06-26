@@ -1,6 +1,7 @@
 <script lang="ts">
     import { loop_guard } from 'svelte/internal';
 	import { page } from '$app/stores';
+	import { fade } from "svelte/transition";
 
 	export let data;
 	$: ({trainings} = data);
@@ -13,7 +14,7 @@
 	<title>Historial ─ MTZ</title>
 </head>
 
-<div class="index">
+<div in:fade class="index">
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		

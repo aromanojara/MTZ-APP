@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { fade } from "svelte/transition";
 	export let data;
 	$: ({trainings} = data);
-
+	
 </script>
 
 <head>
@@ -32,7 +33,7 @@
 			</a>
 		</div> -->
 
-		<div id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
+		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
 
 		{#each trainings as training}
 			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
