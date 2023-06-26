@@ -9,6 +9,10 @@
 	
 </script>
 
+<head>
+	<title>Perfil ─ MTZ</title>
+</head>
+
 <div class="index">
 	<div class="title-container">
 		<i class="fa-solid fa-user" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600;"></i>

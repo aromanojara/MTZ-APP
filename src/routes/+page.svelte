@@ -2,9 +2,8 @@
 	
 </script>
 
-<title>Login ─ MTZ</title>
 <head>
-	
+	<title>Login ─ MTZ</title>
 </head>
 
 <div class="index">

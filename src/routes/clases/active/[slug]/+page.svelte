@@ -16,7 +16,16 @@
 	let joined = data.joined;
 	let joinedWaitlist = data.joinedWaitlist;
 
+	let disabled = false;
+	function handleClick() {
+		disabled = true;
+    }
+
 </script>
+
+<head>
+	<title>Clase ─ MTZ</title>
+</head>
 
 <div class="index">
 
@@ -106,7 +115,7 @@
 						<form method="post" action="?/JoinClass">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-join">
+							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
 								Inscribirse
 							</button>
 						</form>
@@ -119,7 +128,7 @@
 						<form method="post" action="?/LeaveClass">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-dropout">
+							<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
 								Desinscribirse
 							</button>
 						</form>
@@ -173,7 +182,7 @@
 						<form method="post" action="?/JoinClassWaitList">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-join">
+							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
 								Inscribirse
 							</button>
 						</form>
@@ -185,7 +194,7 @@
 						<form method="post" action="?/LeaveClassWaitList">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-dropout">
+							<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
 								Desinscribirse
 							</button>
 						</form>

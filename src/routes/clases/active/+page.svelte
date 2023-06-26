@@ -9,6 +9,10 @@
 	
 </script>
 
+<head>
+	<title>Clases Activas ─ MTZ</title>
+</head>
+
 <div class="index">
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
