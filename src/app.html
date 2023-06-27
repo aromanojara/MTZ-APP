@@ -4,12 +4,12 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
-		<link rel="preload" as="font" href="%sveltekit.assets%/fonts/montserrat-regular-webfont.woff2" type="font/woff2" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="theme-color" content="#B54545"> 
 		<meta http-equiv="Permissions-Policy" content="interest-cohort=()">
 		<script src="https://kit.fontawesome.com/a7a943c4c3.js" crossorigin="anonymous"></script>
 		%sveltekit.head%
+		<link rel="preload" as="font" href="%sveltekit.assets%/fonts/montserrat-regular-webfont.woff2">
 		<link rel="manifest" href="/public/manifest.json">
 		<link rel="apple-touch-icon" href="/icons/manifest-icon-192.maskable.png">
 	</head>
@@ -22,13 +22,13 @@
 <style>
 	
 	@font-face {
-		
+
 		font-family: 'montserratregular';
 		src: url('%sveltekit.assets%/fonts/montserrat-regular-webfont.woff2') format('woff2'),
 			url('%sveltekit.assets%/fonts/montserrat-regular-webfont.woff') format('woff');
 		font-weight: normal;
 		font-style: normal;
-		font-display: optional;
+		font-display: block;
 
 	}
 

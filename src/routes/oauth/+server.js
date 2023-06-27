@@ -5,7 +5,6 @@ import { users } from '../../db/users';
 
 
 async function addUserToMongo(playerData) {
-	console.log(playerData);
 
 	await users.insertOne({
 		"_id": playerData.email,

@@ -5,8 +5,6 @@
 
 	export let data;
 	$: ({users} = data);
-	console.log(data);
-	
 	
 </script>
 
