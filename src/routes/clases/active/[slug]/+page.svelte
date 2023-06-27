@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { loop_guard } from 'svelte/internal';
-	import { page } from '$app/stores';
 	import { fade } from "svelte/transition";
 
 	export let data;
@@ -83,18 +81,33 @@
 						{#if attendance >= 1}
 						<!-- for each player -->
 						{#each players as player}
-							<div class="name-time">
-								<div style="display: flex; padding-left: 18px;">
-									<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-									<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-										<i class="fa-solid fa-user"></i>
+							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
+								<div class="name-time-yellow">
+									<div style="display: flex; padding-left: 18px;">
+										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
+										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+											<i class="fa-solid fa-user"></i>
+										</div>
+										<p>{player.nombre}</p>
 									</div>
-									<p>{player.nombre}</p>
+									<div style="padding-right: 18px;">
+										<p>{player.fecha}</p>
+									</div>
 								</div>
-								<div style="padding-right: 18px;">
-									<p>{player.fecha}</p>
+							{:else}
+								<div class="name-time">
+									<div style="display: flex; padding-left: 18px;">
+										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
+										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+											<i class="fa-solid fa-user"></i>
+										</div>
+										<p>{player.nombre}</p>
+									</div>
+									<div style="padding-right: 18px;">
+										<p>{player.fecha}</p>
+									</div>
 								</div>
-							</div>
+							{/if}
 						{/each}
 						{:else}
 						<!-- display nothing -->
@@ -151,18 +164,33 @@
 						{#if playersWaitList.length >= 1}
 						<!-- for each player -->
 							{#each playersWaitList as wait}
-								<div class="name-time">
-									<div style="display: flex; padding-left: 18px;">
-										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+								{#if wait.nombre == localsData.name + ' ' + localsData.lastName}
+									<div class="name-time-yellow">
+										<div style="display: flex; padding-left: 18px;">
+											<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
+											<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+												<i class="fa-solid fa-user"></i>
+											</div>
+											<p>{wait.nombre}</p>
 										</div>
-										<p>{wait.nombre}</p>
+										<div style="padding-right: 18px;">
+											<p>{wait.fecha}</p>
+										</div>
 									</div>
-									<div style="padding-right: 18px;">
-										<p>{wait.fecha}</p>
+								{:else}
+									<div class="name-time">
+										<div style="display: flex; padding-left: 18px;">
+											<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
+											<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+												<i class="fa-solid fa-user"></i>
+											</div>
+											<p>{wait.nombre}</p>
+										</div>
+										<div style="padding-right: 18px;">
+											<p>{wait.fecha}</p>
+										</div>
 									</div>
-								</div>
+								{/if}
 							{/each}
 						{:else}
 							<!-- display nothing -->
@@ -247,6 +275,14 @@
 		justify-content: space-between;
 		margin-top: -15px;
 		color: #B54545;
+		font-weight: bold;
+	}
+
+	.name-time-yellow {
+		display: flex; 
+		justify-content: space-between;
+		margin-top: -15px;
+		color: #F1C40F;
 		font-weight: bold;
 	}
 	
