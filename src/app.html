@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+		<!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="theme-color" content="#B54545"> 
 		<meta http-equiv="Permissions-Policy" content="interest-cohort=()">
@@ -19,6 +19,16 @@
 </html>
 
 <style>
+	
+	@font-face {
+		font-family: 'montserratregular';
+		src: url('/assets/fonts/montserrat-regular-webfont.woff2') format('woff2'),
+			url('/assets/fonts/montserrat-regular-webfont.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+
+	}
+
 	html, body {
 		background-color: #ffffff;
 		height: 100%;
@@ -26,8 +36,8 @@
 		margin-top: 0px;
 		margin-left: 0px;
     	margin-right: 0px;
-		font-family: Montserrat;
+		font-family: montserratregular;
 		user-select: none;
-		font-display: block;
 	}
+
 </style>
