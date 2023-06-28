@@ -2,26 +2,17 @@
 	import { fade } from "svelte/transition";
 
 	export let data;
-	$: ({trainings} = data);	
+	$: ({payments} = data);	
 
-	let localsData = data.localsData;
-	
-	let players = data.trainings[0].players
-	let playersWaitList = data.trainings[0].playersWaitList
-	let attendance = parseInt(data.trainings[0].attendance);
-	let name = data.user[0].nombre + " " + data.user[0].apellido
-	let joined = data.joined;
-	let joinedWaitlist = data.joinedWaitlist;
+	let localsData = data.localsData;	
 
-	let disabled = false;
-	function handleClick() {
-		disabled = true;
-    }
+	let players = data.payments[0].players
+	let paid = parseInt(data.payments[0].paid);
 
 </script>
 
 <head>
-	<title>Clase ─ MTZ</title>
+	<title>Pago ─ MTZ</title>
 </head>
 
 <div class="index">
@@ -30,8 +21,8 @@
 		
 	
 		<div class="back-container">
-			<a href="/clases/active" class="left-arrow"><i class="fa-solid fa-arrow-left"></i></a>
-			<a href="/clases/active" class="left-arrow-text"><p>Volver al listado</p></a>
+			<a href="/payments/history" class="left-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+			<a href="/payments/history" class="left-arrow-text"><p>Volver al listado</p></a>
 		</div>
 		
 
@@ -44,20 +35,22 @@
 			<!-- Make prettier? -->
 			<div class="clases-container" style="cursor: pointer;">
 				<div class="clases-place">
-					{trainings[0].place}
+					{payments[0].place}
 				</div>
 				<div class="clases-title">
-					{trainings[0].title}
+					{payments[0].title}
 				</div>
 				<div class="clases-icon-row">
-					<div class="clases-icon-column-left">
-						<i class="fa-regular fa-clock"></i> {trainings[0].hora}
-					</div>
-					<div class="clases-icon-column">
-						<i class="fa-solid fa-users"></i> {trainings[0].quotaLeft} Cupos
-					</div>
-					<div class="clases-icon-column-right">
-						<i class="fa-solid fa-calendar-days"></i> {trainings[0].fecha}
+					<div class="clases-icon-row">
+						<div class="clases-icon-column-left">
+							<i class="fa-solid fa-money-bill-wave"></i> {payments[0].amount}
+						</div>
+						<div class="clases-icon-column">
+							<i class="fa-solid fa-users"></i> {payments[0].quotaLeft} Pendientes
+						</div>
+						<div class="clases-icon-column-right">
+							<i class="fa-solid fa-calendar-days"></i> {payments[0].fecha}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -72,13 +65,13 @@
 				<div class="clases-container-players">
 
 					<div>
-						<p class="players-count">Jugadores Inscritos con Plan ({attendance}/{trainings[0].quota})</p>
+						<p class="players-count">Pagos realizados ({paid}/{payments[0].quota})</p>
 					</div>
 					
 					<!-- wrapper makes div height dynamic -->
 					<div id="wrapper">
 
-						{#if attendance >= 1}
+						{#if paid >= 1}
 						<!-- for each player -->
 						{#each players as player}
 							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
@@ -111,130 +104,20 @@
 						{/each}
 						{:else}
 						<!-- display nothing -->
-						<div class="name-time-attendance"></div>
+						<div class="name-time-paid"></div>
 						{/if}
 					</div>
 
 				</div>
 			</div>
-
 			<!-- Inscritos planes -->
-
-			<!-- Botones planes -->
-			{#if !joinedWaitlist && attendance < 18}
-				{#if !joined && attendance < 18}
-					<div id="joinContainer" class="button-container">
-						<form method="post" action="?/JoinClass">
-							<input type="text" name="name" bind:value={name} hidden>
-							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
-								Inscribirse
-							</button>
-						</form>
-
-					</div>
-				{/if}
-
-				{#if joined}
-					<div id="dropoutContainer" class="button-container">
-						<form method="post" action="?/LeaveClass">
-							<input type="text" name="name" bind:value={name} hidden>
-							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
-								Desinscribirse
-							</button>
-						</form>
-					</div>
-				{/if}
-			{/if}
-			<!-- Botones planes -->
-
-			<!-- Lista de espera -->
-
-			<div style="display: flex; justify-content: center; padding-bottom: 15px; padding-top: 35px;">
-				<div class="clases-container-players">
-
-					<div>
-						<p class="players-count-waitlist">Lista de espera (Pase Diario)</p>
-					</div>
-					
-					<!-- wrapper makes div height dynamic -->
-					<div id="wrapper">
-
-						{#if playersWaitList.length >= 1}
-						<!-- for each player -->
-							{#each playersWaitList as wait}
-								{#if wait.nombre == localsData.name + ' ' + localsData.lastName}
-									<div class="name-time-yellow">
-										<div style="display: flex; padding-left: 18px;">
-											<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-											<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-												<i class="fa-solid fa-user"></i>
-											</div>
-											<p>{wait.nombre}</p>
-										</div>
-										<div style="padding-right: 18px;">
-											<p>{wait.fecha}</p>
-										</div>
-									</div>
-								{:else}
-									<div class="name-time">
-										<div style="display: flex; padding-left: 18px;">
-											<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-											<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-												<i class="fa-solid fa-user"></i>
-											</div>
-											<p>{wait.nombre}</p>
-										</div>
-										<div style="padding-right: 18px;">
-											<p>{wait.fecha}</p>
-										</div>
-									</div>
-								{/if}
-							{/each}
-						{:else}
-							<!-- display nothing -->
-							<div class="name-time-attendance"></div>
-						{/if}
-					</div>
-
-				</div>
-			</div>
-
-			<!-- Lista de espera -->
-
-			{#if !joined && attendance < 18}
-				{#if !joinedWaitlist && attendance < 18}
-					<div id="joinContainer" class="button-container">
-						<form method="post" action="?/JoinClassWaitList">
-							<input type="text" name="name" bind:value={name} hidden>
-							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
-								Inscribirse
-							</button>
-						</form>
-					</div>
-				{/if}
-
-				{#if joinedWaitlist}
-					<div id="dropoutContainer" class="button-container">
-						<form method="post" action="?/LeaveClassWaitList">
-							<input type="text" name="name" bind:value={name} hidden>
-							<input type="text" name="email" bind:value={localsData.email} hidden>
-							<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
-								Desinscribirse
-							</button>
-						</form>
-					</div>
-				{/if}
-			{/if}
 		</div>
 	</div>
 
 
 	<div class="icon-bar">
-		<a class="active" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
-		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
+		<a class="inactive" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
+		<a class="active" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
 		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
 		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
@@ -289,7 +172,7 @@
 		font-weight: bold;
 	}
 	
-	.name-time-attendance {
+	.name-time-paid {
 		display: flex; 
 		justify-content: space-between;
 		margin-top: -15px;
@@ -298,12 +181,6 @@
 	}
 
 	.players-count {
-		font-weight: 600;
-		font-size: 16px;
-		margin-left: 17px;
-	}
-
-	.players-count-waitlist {
 		font-weight: 600;
 		font-size: 16px;
 		margin-left: 17px;

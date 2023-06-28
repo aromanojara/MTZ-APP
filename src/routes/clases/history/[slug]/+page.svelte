@@ -14,9 +14,9 @@
 	<title>Historial ─ MTZ</title>
 </head>
 
-<div in:fade class="index">
+<div class="index">
 
-	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
+	<div in:fade style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		
 	
 		<div class="back-container">
@@ -44,7 +44,7 @@
 						<i class="fa-regular fa-clock"></i> {trainings[0].hora}
 					</div>
 					<div class="clases-icon-column">
-						<i class="fa-solid fa-users"></i> {trainings[0].quota} Cupos
+						<i class="fa-solid fa-users"></i> {trainings[0].quotaLeft} Cupos
 					</div>
 					<div class="clases-icon-column-right">
 						<i class="fa-solid fa-calendar-days"></i> {trainings[0].fecha}
@@ -59,7 +59,7 @@
 				<div class="clases-container-players">
 
 					<div>
-						<p class="players-count">Jugadores Inscritos ({attendance}/18)</p>
+						<p class="players-count">Jugadores Inscritos ({attendance}/{trainings[0].quota})</p>
 					</div>
 					
 					<!-- wrapper makes div height dynamic -->
@@ -86,7 +86,10 @@
 
 
 	<div class="icon-bar">
-		<a class="active" href="/clases/history"><i class="fa-solid fa-calendar-days"></i><p>Clases</p></a>
+		<a class="active" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
+		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
+		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
+		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
 	</div>
 
@@ -189,8 +192,6 @@
 		flex-direction: column;
 	}
 
-	
-
 	.index {
     	display: flex;
 		margin: auto;
@@ -210,7 +211,7 @@
 	.icon-bar a {
 		float: left; /* Float links side by side */
 		text-align: center; /* Center-align text */
-		width: 50%; /* Equal width (5 icons with 20% width each = 100%) */
+		width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
 		padding: 12px 0; /* Some top and bottom padding */
 		font-size: 24px; /* Increased font size */
 		text-decoration: none;

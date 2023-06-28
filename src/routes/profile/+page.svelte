@@ -5,7 +5,6 @@
 
 	export let data;
 	$: ({users} = data);
-	
 </script>
 
 <head>
@@ -14,11 +13,11 @@
 
 <div class="index">
 	<div class="title-container">
-		<i class="fa-solid fa-user" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600;"></i>
+		<i class="fa-solid fa-user" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; padding-top: 2px;"></i>
 		<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Perfil</p>
 	</div>
 	
-	<div in:fade class="form_container">
+	<div in:fade class="form-container">
 		<form action="" method="post">
 			<div class="form_group">
 
@@ -26,17 +25,21 @@
 					<img class="img" src="{users[0].foto}" alt="logo.png" referrerpolicy="no-referrer"/>
 				</div>
 
-				<div class="name_container">
+				<div class="name-container">
 					<p style="margin-bottom: 6px">Nombre</p>
 					<input type="text" id="name" name="name" class="name" value="{users[0].nombre}" disabled>
 				</div>
-				<div class="lastName_container">
+				<div class="lastName-container">
 					<p style="margin-bottom: 6px">Apellido</p>
 					<input type="text" id="lastName" name="lastName" class="lastName" value="{users[0].apellido}" disabled>
 				</div>
+				<div class="email-container">
+					<p style="margin-bottom: 6px">Email</p>
+					<input type="text" id="email" name="email" class="email" value="{users[0]._id}" disabled>
+				</div>
 			</div>
-			<div class="button_container">
-				<input type="submit" formaction="?/LogOut" value="Cerrar Sesión" class="button_login">
+			<div class="button-container">
+				<input type="submit" formaction="?/LogOut" value="Cerrar Sesión" class="button-logout">
 			</div>
 		</form>
 	</div>
@@ -44,7 +47,10 @@
 
 
 	<div class="icon-bar">
-		<a class="inactive" href="/clases/active"><i class="fa-solid fa-calendar-days"></i><p>Clases</p></a>
+		<a class="inactive" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
+		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
+		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
+		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="active" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
 	</div>
 
@@ -82,7 +88,7 @@
 	.icon-bar a {
 		float: left; /* Float links side by side */
 		text-align: center; /* Center-align text */
-		width: 50%; /* Equal width (5 icons with 20% width each = 100%) */
+		width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
 		padding: 12px 0; /* Some top and bottom padding */
 		font-size: 24px; /* Increased font size */
 		text-decoration: none;
@@ -111,28 +117,21 @@
 		margin-bottom: -15px;
 	}
 
-	.form_container {
+	.form-container {
     	display: block;
 		padding-left: 1.5rem;
     	padding-right: 1.5rem;
 		
 	}
 
-	.name_container {
+	.name-container, .lastName-container, .email-container {
 		width: 100%;
 		position: relative;
 		background-color: transparent;
 		margin: 10px 0;
 	}
 
-	.lastName_container {
-		width: 100%;
-		position: relative;
-		background-color: transparent;
-		margin: 10px 0;
-	}
-
-	.button_container {
+	.button-container {
 		width: 85%;
 		position: fixed;
 		background-color: transparent;
@@ -142,7 +141,7 @@
     	transform: translateX(-50%);
 	}
 
-	.name {
+	.name, .lastName, .email {
 		background: #ffffff;
 		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		border-radius: 6px;
@@ -160,25 +159,12 @@
 		outline-color: #F1C40F;
 	}
 
-	.lastName {
-		background: #ffffff;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-		border-radius: 6px;
-		width: 100%;
-		height: 40px;
-		box-sizing:border-box;
-		border-color: transparent;
-		font-size: 14px;
-		padding-left: 10px;
-		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.20);
-	}
-
 	.lastName:focus {
 		outline-style: solid;
 		outline-color: #F1C40F;
 	}
 
-	.button_login {
+	.button-logout {
 		background: #B54545;
 		color: white;
 		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

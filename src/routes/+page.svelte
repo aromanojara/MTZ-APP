@@ -9,7 +9,7 @@
 <div class="index">
 
 	<div class="img_container">
-		<img src="/logo.png" alt="Logo MTZ">
+		<img src="/logo.webp" alt="Logo MTZ">
 	</div>
 
 	<!-- Remove "a" tag, add action ?/login and modify +page.server.js to do something  -->

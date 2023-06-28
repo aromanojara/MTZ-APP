@@ -6,14 +6,14 @@
 </script>
 
 <head>
-	<title>Historial ─ MTZ</title>
+	<title>Clases Historial ─ MTZ</title>
 </head>
 
 <div class="index">
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		<div class="title-container">
-			<i class="fa-solid fa-calendar-days" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px;"></i>
+			<i class="fa-solid fa-volleyball" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
 			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Clases</p>
 		</div>
 
@@ -37,7 +37,7 @@
 
 		{#each trainings as training}
 			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-				<div class="clases-container" onclick="location.href='/clases/history/{training._id}';" style="cursor: pointer;">
+				<a href="/clases/history/{training._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
 					<div class="clases-place">
 						{training.place}
 					</div>
@@ -49,13 +49,13 @@
 							<i class="fa-regular fa-clock"></i> {training.hora}
 						</div>
 						<div class="clases-icon-column">
-							<i class="fa-solid fa-users"></i> {training.quota} Cupos
+							<i class="fa-solid fa-users"></i> {training.quotaLeft} Cupos
 						</div>
 						<div class="clases-icon-column-right">
 							<i class="fa-solid fa-calendar-days"></i> {training.fecha}
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 		{/each}
 
@@ -64,7 +64,10 @@
 
 
 	<div class="icon-bar">
-		<a class="active" href="/clases/active"><i class="fa-solid fa-calendar-days"></i><p>Clases</p></a>
+		<a class="active" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
+		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
+		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
+		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
 	</div>
 
@@ -156,7 +159,7 @@
 		flex-direction: column;
 	}
 
-	.clases-finder-container {
+	/* .clases-finder-container {
 		display: flex;
 		justify-content: space-evenly;
 		align-items: center;
@@ -166,7 +169,7 @@
 		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 		width: 90%;
 		
-	}
+	} */
 
 	.index {
     	display: flex;
@@ -187,7 +190,7 @@
 	.icon-bar a {
 		float: left; /* Float links side by side */
 		text-align: center; /* Center-align text */
-		width: 50%; /* Equal width (5 icons with 20% width each = 100%) */
+		width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
 		padding: 12px 0; /* Some top and bottom padding */
 		font-size: 24px; /* Increased font size */
 		text-decoration: none;

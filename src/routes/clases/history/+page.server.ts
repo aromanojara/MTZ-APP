@@ -4,10 +4,12 @@ import type { PageServerLoad } from './$types';
 import { redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async function({locals}) {
+
 	if (!locals.user) {
 		throw redirect(302, "/")
 		
 	}
+	
 	let dataTrainings = await trainings.find({date: {$lt: new Date()}}).sort({date: -1}).toArray();
 
 	// Formatting Date and Hour

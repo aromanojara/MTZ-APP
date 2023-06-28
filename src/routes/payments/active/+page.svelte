@@ -4,28 +4,25 @@
     import { fade } from "svelte/transition";
 
 	export let data;
-	$: ({trainings} = data);
-
-	// console.log("data", data);
-	
+	$: ({payments} = data);	
 </script>
 
 <head>
-	<title>Clases Activas ─ MTZ</title>
+	<title>Pagos Activos ─ MTZ</title>
 </head>
 
 <div class="index">
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		<div class="title-container">
-			<i class="fa-solid fa-volleyball" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
-			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Clases</p>
+			<i class="fa-solid fa-money-bill-wave" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 6px;"></i>
+			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Pagos</p>
 		</div>
 
 		<div style="display: flex; justify-content: center; margin-bottom: 20px;">
 			<div class="clases-selector-container">
-				<a href="/clases/history"><button class="history-clases">Historial</button></a>
-				<button class="active-clases">Activas</button>
+				<a href="/payments/history"><button class="history-clases">Historial</button></a>
+				<button class="active-clases">Activos</button>
 			</div>
 		</div>
 
@@ -40,24 +37,24 @@
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
 
-			{#each trainings as training}
+			{#each payments as payment}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<a href="/clases/active/{training._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
+					<a href="/payments/active/{payment._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
 						<div class="clases-place">
-							{training.place}
+							{payment.place}
 						</div>
 						<div class="clases-title">
-							{training.title}
+							{payment.title}
 						</div>
 						<div class="clases-icon-row">
 							<div class="clases-icon-column-left">
-								<i class="fa-regular fa-clock"></i> {training.hora}
+								<i class="fa-solid fa-money-bill-wave"></i> {payment.amount}
 							</div>
 							<div class="clases-icon-column">
-								<i class="fa-solid fa-users"></i> {training.quotaLeft} Cupos
+								<i class="fa-solid fa-users"></i> {payment.quota} Pendientes
 							</div>
 							<div class="clases-icon-column-right">
-								<i class="fa-solid fa-calendar-days"></i> {training.fecha}
+								<i class="fa-solid fa-calendar-days"></i> {payment.fecha}
 							</div>
 						</div>
 					</a>
@@ -69,8 +66,8 @@
 
 
 	<div class="icon-bar">
-		<a class="active" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
-		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
+		<a class="inactive" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
+		<a class="active" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
 		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
 		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>

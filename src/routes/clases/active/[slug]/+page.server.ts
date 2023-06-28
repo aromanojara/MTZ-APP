@@ -17,7 +17,7 @@ export const actions = {
 
 
 
-		const quota = parseInt(dataTrainings[0].quota) - 1;
+		const quotaLeft = parseInt(dataTrainings[0].quotaLeft) - 1;
 		const attendance = parseInt(dataTrainings[0].attendance) + 1;	
 		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
 		const dia = date.substring(0, 5);
@@ -29,7 +29,7 @@ export const actions = {
 			{ _id: new ObjectId(event.params.slug) },
 			{
 				$set:{
-						quota: quota,
+						quotaLeft: quotaLeft,
 						attendance: attendance
 				},
 				$push: { 
@@ -50,7 +50,7 @@ export const actions = {
 
 		let dataTrainings = await trainings.find({_id: new ObjectId(event.params.slug) }).toArray();
 
-		const quota = parseInt(dataTrainings[0].quota) + 1;
+		const quotaLeft = parseInt(dataTrainings[0].quotaLeft) + 1;
 		const attendance = parseInt(dataTrainings[0].attendance) - 1;	
 
 		await trainings.updateOne(
@@ -58,7 +58,7 @@ export const actions = {
 			{ 
 				$pull: { 'players': { email: email } },
 				$set:{
-					quota: quota,
+					quotaLeft: quotaLeft,
 					attendance: attendance	
 				}
 			}
@@ -75,7 +75,7 @@ export const actions = {
 		const email = data.get('email');
 
 		// let dataTrainings = await trainings.find({_id: new ObjectId(event.params.slug) }).toArray();
-		// const quota = parseInt(dataTrainings[0].quota) - 1;
+		// const quotaLeft = parseInt(dataTrainings[0].quotaLeft) - 1;
 		// const attendance = parseInt(dataTrainings[0].attendance) + 1;
 		
 		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})

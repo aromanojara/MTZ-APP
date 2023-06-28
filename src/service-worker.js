@@ -11,7 +11,7 @@ self.addEventListener("activate", e => {
 	// console.log("sw has been activated");
 });
 
-self.addEventListener("fetch", e => {
-	//console.log(`Intercepting fetch request for: ${e.request.url}`);
+// self.addEventListener("fetch", e => {
+// 	//console.log(`Intercepting fetch request for: ${e.request.url}`);
 	
-});
+// });
