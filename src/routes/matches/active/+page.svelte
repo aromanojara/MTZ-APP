@@ -2,25 +2,25 @@
     import { fade } from "svelte/transition";
 
 	export let data;
-	$: ({events} = data);
+	$: ({matches} = data);
 	
 </script>
 
 <head>
-	<title>Eventos Activos ─ MTZ</title>
+	<title>Partidos Activos ─ MTZ</title>
 </head>
 
 <div class="index">
 
-	<div in:fade style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
+	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		<div class="title-container">
-			<i class="fa-solid fa-calendar-days" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
-			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Eventos</p>
+			<i class="fa-solid fa-trophy" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
+			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Partidos</p>
 		</div>
 
 		<div style="display: flex; justify-content: center; margin-bottom: 20px;">
 			<div class="clases-selector-container">
-				<a href="/events/history"><button class="history-clases">Historial</button></a>
+				<a href="/matches/history"><button class="history-clases">Historial</button></a>
 				<button class="active-clases">Activos</button>
 			</div>
 		</div>
@@ -36,24 +36,24 @@
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding event card -->
 
-			{#each events as event}
+			{#each matches as match}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<a href="/events/active/{event._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
+					<a href="/matches/active/{match._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
 						<div class="clases-place">
-							{event.place}
+							{match.place}
 						</div>
 						<div class="clases-title">
-							{event.title}
+							{match.title}
 						</div>
 						<div class="clases-icon-row">
 							<div class="clases-icon-column-left">
-								<i class="fa-regular fa-clock"></i> {event.hora}
+								<i class="fa-regular fa-clock"></i> {match.hora}
 							</div>
 							<div class="clases-icon-column">
-								<i class="fa-solid fa-users"></i> {event.quotaLeft} Cupos
+								<i class="fa-solid fa-users"></i> {match.quotaLeft} Cupos
 							</div>
 							<div class="clases-icon-column-right">
-								<i class="fa-solid fa-calendar-days"></i> {event.fecha}
+								<i class="fa-solid fa-calendar-days"></i> {match.fecha}
 							</div>
 						</div>
 					</a>
@@ -67,8 +67,8 @@
 	<div class="icon-bar">
 		<a class="inactive" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
 		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
-		<a class="active" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
-		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
+		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
+		<a class="active" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
 	</div>
 

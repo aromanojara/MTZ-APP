@@ -1,27 +1,26 @@
 <script lang="ts">
-    import { fade } from "svelte/transition";
-
+	import { fade } from "svelte/transition";
 	export let data;
-	$: ({events} = data);
+	$: ({matches} = data);
 	
 </script>
 
 <head>
-	<title>Eventos Activos ─ MTZ</title>
+	<title>Partidos Historial ─ MTZ</title>
 </head>
 
 <div class="index">
 
-	<div in:fade style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
+	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		<div class="title-container">
-			<i class="fa-solid fa-calendar-days" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
-			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Eventos</p>
+			<i class="fa-solid fa-trophy" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
+			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Partidos</p>
 		</div>
 
 		<div style="display: flex; justify-content: center; margin-bottom: 20px;">
 			<div class="clases-selector-container">
-				<a href="/events/history"><button class="history-clases">Historial</button></a>
-				<button class="active-clases">Activos</button>
+				<button class="history-clases">Historial</button>
+				<a href="/matches/active"><button class="active-clases">Activos</button></a>
 			</div>
 		</div>
 
@@ -36,29 +35,29 @@
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding event card -->
 
-			{#each events as event}
-				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<a href="/events/active/{event._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
-						<div class="clases-place">
-							{event.place}
+		{#each matches as match}
+			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
+				<a href="/matches/history/{match._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
+					<div class="clases-place">
+						{match.place}
+					</div>
+					<div class="clases-title">
+						{match.title}
+					</div>
+					<div class="clases-icon-row">
+						<div class="clases-icon-column-left">
+							<i class="fa-regular fa-clock"></i> {match.hora}
 						</div>
-						<div class="clases-title">
-							{event.title}
+						<div class="clases-icon-column">
+							<i class="fa-solid fa-users"></i> {match.quotaLeft} Cupos
 						</div>
-						<div class="clases-icon-row">
-							<div class="clases-icon-column-left">
-								<i class="fa-regular fa-clock"></i> {event.hora}
-							</div>
-							<div class="clases-icon-column">
-								<i class="fa-solid fa-users"></i> {event.quotaLeft} Cupos
-							</div>
-							<div class="clases-icon-column-right">
-								<i class="fa-solid fa-calendar-days"></i> {event.fecha}
-							</div>
+						<div class="clases-icon-column-right">
+							<i class="fa-solid fa-calendar-days"></i> {match.fecha}
 						</div>
-					</a>
-				</div>
-			{/each}
+					</div>
+				</a>
+			</div>
+		{/each}
 
 		</div> 
 	</div>
@@ -67,8 +66,8 @@
 	<div class="icon-bar">
 		<a class="inactive" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
 		<a class="inactive" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
-		<a class="active" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
-		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
+		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
+		<a class="active" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
 		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
 	</div>
 
@@ -108,8 +107,9 @@
 	}
 
 	.history-clases {
-		background-color:#B54545;
-		color: white;
+		
+        background-color: white;
+		color: #B54545;
 		border-radius: 4px;
 		font-weight: bold;
 		border-color: #B54545;
@@ -122,8 +122,8 @@
 	}
 
 	.active-clases {
-		background-color: white;
-		color: #B54545;
+		background-color:#B54545;
+		color: white;
 		border-radius: 4px;
 		font-weight: bold;
 		border-color: #B54545;

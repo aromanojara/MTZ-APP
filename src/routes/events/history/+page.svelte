@@ -20,7 +20,7 @@
 		<div style="display: flex; justify-content: center; margin-bottom: 20px;">
 			<div class="clases-selector-container">
 				<button class="history-clases">Historial</button>
-				<a href="/events/active"><button class="active-clases">Activas</button></a>
+				<a href="/events/active"><button class="active-clases">Activos</button></a>
 			</div>
 		</div>
 

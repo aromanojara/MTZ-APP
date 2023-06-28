@@ -23,7 +23,7 @@
 		<div style="display: flex; justify-content: center; margin-bottom: 20px;">
 			<div class="clases-selector-container">
 				<button class="active-clases">Historial</button>
-				<a href="/payments/active"><button class="history-clases">Activas</button></a>
+				<a href="/payments/active"><button class="history-clases">Activos</button></a>
 			</div>
 		</div>
 
