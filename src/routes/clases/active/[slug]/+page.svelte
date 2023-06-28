@@ -80,7 +80,7 @@
 
 						{#if attendance >= 1}
 						<!-- for each player -->
-						{#each players as player}
+							{#each players as player}
 							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
 								<div class="name-time-yellow">
 									<div style="display: flex; padding-left: 18px;">
@@ -108,13 +108,13 @@
 									</div>
 								</div>
 							{/if}
-						{/each}
-						{:else}
-						<!-- display nothing -->
-						<div class="name-time-attendance"></div>
+							{/each}
+							{:else}
+							<!-- display nothing -->
+							<div class="name-time-attendance"></div>
 						{/if}
-					</div>
 
+					</div>
 				</div>
 			</div>
 

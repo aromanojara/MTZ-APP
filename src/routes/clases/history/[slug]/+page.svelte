@@ -6,8 +6,10 @@
 	export let data;
 	$: ({trainings} = data);
 	// console.log($page.data);	
+	let localsData = data.localsData;
+	let players = data.trainings[0].players;
+	let attendance = parseInt(data.trainings[0].attendance);
 
-	let attendance = 1;
 </script>
 
 <head>
@@ -65,17 +67,41 @@
 					<!-- wrapper makes div height dynamic -->
 					<div id="wrapper">
 
-						<div class="name-time">
-							<div style="display: flex; padding-left: 18px;">
-								<div style="display: flex; align-items: center; margin-right: 12px">
-									<i class="fa-solid fa-user"></i>
+						{#if attendance >= 1}
+						<!-- for each player -->
+							{#each players as player}
+							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
+								<div class="name-time-yellow">
+									<div style="display: flex; padding-left: 18px;">
+										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
+										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+											<i class="fa-solid fa-user"></i>
+										</div>
+										<p>{player.nombre}</p>
+									</div>
+									<div style="padding-right: 18px;">
+										<p>{player.fecha}</p>
+									</div>
 								</div>
-								<p>Angelo Romano</p>
-							</div>
-							<div style="padding-right: 18px;">
-								<p>16:05</p>
-							</div>
-						</div>
+							{:else}
+								<div class="name-time">
+									<div style="display: flex; padding-left: 18px;">
+										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
+										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+											<i class="fa-solid fa-user"></i>
+										</div>
+										<p>{player.nombre}</p>
+									</div>
+									<div style="padding-right: 18px;">
+										<p>{player.fecha}</p>
+									</div>
+								</div>
+							{/if}
+							{/each}
+							{:else}
+							<!-- display nothing -->
+							<div class="name-time-attendance"></div>
+						{/if}
 						
 					</div>
 				</div>
@@ -131,6 +157,14 @@
 		justify-content: space-between;
 		margin-top: -15px;
 		color: #B54545;
+		font-weight: bold;
+	}
+
+	.name-time-yellow {
+		display: flex; 
+		justify-content: space-between;
+		margin-top: -15px;
+		color: #F1C40F;
 		font-weight: bold;
 	}
 

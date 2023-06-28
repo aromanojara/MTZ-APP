@@ -40,7 +40,7 @@
 
 			{#each payments as payment}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<a href="/payments/active/{payment._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
+					<a href="/payments/history/{payment._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
 						<div class="clases-place">
 							{payment.place}
 						</div>
