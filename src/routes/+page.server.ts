@@ -6,8 +6,13 @@ import { error } from "@sveltejs/kit";
 
 
 export const actions={
-	OAuth2: async({url})=>{
-		// const redirectURL = 'http://localhost:5173/oauth';
+	OAuth2: async({url, locals})=>{
+		console.log(locals.user);
+		
+		if (locals.user) {
+			throw redirect(302, "/clases/active")
+		}
+
 		const redirectURL = `${url.origin}/oauth`;
 
 		const oAuth2Client = new OAuth2Client(
@@ -35,7 +40,7 @@ export const actions={
 export const load: PageServerLoad = async function({cookies, locals, request}) {
 
 	if (locals.user) {
-		throw redirect(302, "/clases/active")
+	 	throw redirect(302, "/clases/active")
 	}
 	
 	return{
