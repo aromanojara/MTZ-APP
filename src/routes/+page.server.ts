@@ -1,6 +1,8 @@
 import { redirect } from "@sveltejs/kit";
 import { OAuth2Client } from "google-auth-library";
 import { SECRET_CLIENT_ID, SECRET_CLIENT_SECRET } from '$env/static/private';
+import type { PageServerLoad } from './$types';
+import { error } from "@sveltejs/kit";
 
 
 export const actions={
@@ -28,4 +30,15 @@ export const actions={
 	// 	// throw redirect(302, redirectURL)
 	// }
 
+}
+
+export const load: PageServerLoad = async function({cookies, locals, request}) {
+
+	if (locals.user) {
+		throw redirect(302, "/clases/active")
+	}
+	
+	return{
+			
+	}
 }
