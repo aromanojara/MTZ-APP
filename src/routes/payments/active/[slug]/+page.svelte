@@ -7,10 +7,10 @@
 	let localsData = data.localsData;
 	
 	let players = data.payments[0].players
+	let picture = data.user[0].foto
 	let paid = parseInt(data.payments[0].paid);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
 	let joined = data.joined;
-	let joinedWaitlist = data.joinedWaitlist;
 
 	let disabled = false;
 	function handleClick() {
@@ -87,7 +87,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -100,7 +100,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -122,12 +122,13 @@
 			<!-- Inscritos planes -->
 
 			<!-- Botones planes -->
-			{#if !joinedWaitlist && paid < 18}
+			{#if paid < 18}
 				{#if !joined && paid < 18}
 					<div id="joinContainer" class="button-container">
 						<form method="post" action="?/JoinClass">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
+							<input type="text" name="picture" bind:value={picture} hidden>
 							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
 								Pagué
 							</button>
@@ -164,6 +165,17 @@
 </div>
 
 <style>
+
+	.img {
+		display: flex;
+		margin: auto;
+		justify-content: center;
+		height: 25px;
+		width: 25px;
+		border-radius: 50%;
+		object-fit: contain;
+		background: #dfdfdf;
+	}
 
 	.button-dropout {
 		background: white;

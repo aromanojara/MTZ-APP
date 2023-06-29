@@ -75,7 +75,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -88,7 +88,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -122,6 +122,17 @@
 </div>
 
 <style>
+
+	.img {
+		display: flex;
+		margin: auto;
+		justify-content: center;
+		height: 25px;
+		width: 25px;
+		border-radius: 50%;
+		object-fit: contain;
+		background: #dfdfdf;
+	}
 
 	.button-dropout {
 		background: white;

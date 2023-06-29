@@ -79,7 +79,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -92,7 +92,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -127,33 +127,15 @@
 
 <style>
 
-	.button-dropout {
-		background: white;
-		color: #B54545;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-		border-radius: 6px;
-		width: 100%;
-		height: 40px;
-		border-color: #B54545;
-		font-weight: bold;
-		border-style: solid;
-	}
-
-	.button-join {
-		background: #B54545;
-		color: white;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-		border-radius: 6px;
-		width: 100%;
-		height: 40px;
-		border-color: transparent;
-		font-weight: bold;
-	}
-
-	.button-container {
-		width: 90%;
-		background-color: transparent;
+	.img {
+		display: flex;
 		margin: auto;
+		justify-content: center;
+		height: 25px;
+		width: 25px;
+		border-radius: 50%;
+		object-fit: contain;
+		background: #dfdfdf;
 	}
 
 	.name-time {

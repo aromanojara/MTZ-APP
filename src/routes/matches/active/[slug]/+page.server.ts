@@ -12,6 +12,7 @@ export const actions = {
         const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		let dataMatches = await matches.find({_id: new ObjectId(event.params.slug) }).toArray();
 
@@ -33,7 +34,7 @@ export const actions = {
 						attendance: attendance
 				},
 				$push: { 
-						players: {nombre: name, fecha: fullDate, email: email, sortDate: new Date()}
+						players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
 			}
 		);	
@@ -66,59 +67,7 @@ export const actions = {
 		
 		throw redirect (303, '/matches/active/'+event.params.slug+'');
 		
-    },
-
-	JoinClassWaitList: async (event, params) => {
-		
-        const data = await event.request.formData();
-		const name = data.get('name');
-		const email = data.get('email');
-
-		// let dataMatches = await matches.find({_id: new ObjectId(event.params.slug) }).toArray();
-		// const quotaLeft = parseInt(dataMatches[0].quotaLeft) - 1;
-		// const attendance = parseInt(dataMatches[0].attendance) + 1;
-		
-		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
-		const dia = date.substring(0, 5);
-		const formattedDia = dia.replace("-", "/");
-		const hora = date.substring(12, 17);
-		const fullDate = formattedDia + " " + hora
-		
-		await matches.updateOne(
-			{ _id: new ObjectId(event.params.slug) },
-			{
-				$push: { 
-						playersWaitList: {nombre: name, fecha: fullDate, email: email, sortDate: new Date()}
-					},
-			}
-		);	
-		
-		throw redirect (303, '/matches/active/'+event.params.slug+'');
-		
-    },
-
-	LeaveClassWaitList: async (event, params) => {
-		
-		const data = await event.request.formData();
-		const name = data.get('name');
-		const email = data.get('email');
-
-		// let dataMatches = await matches.find({_id: new ObjectId(event.params.slug) }).toArray();
-
-		// const quota = parseInt(dataMatches[0].quota) + 1;
-		// const attendance = parseInt(dataMatches[0].attendance) - 1;	
-
-		await matches.updateOne(
-			{ _id: new ObjectId(event.params.slug) },
-			{ 
-				$pull: { 'playersWaitList': { email: email } }
-			}
-		);	
-		
-		throw redirect (303, '/matches/active/'+event.params.slug+'');
-		
     }
-
 };
 
 export const load: PageServerLoad = async function({ params, cookies, locals }) {

@@ -13,6 +13,7 @@ export const actions = {
         const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		let dataPayments = await payments.find({_id: new ObjectId(event.params.slug) }).toArray();
 
@@ -37,7 +38,7 @@ export const actions = {
 							ready: ready
 					},
 					$push: { 
-							players: {nombre: name, fecha: fullDate, email: email, sortDate: new Date()}
+							players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 						},
 				}
 			);	
@@ -54,7 +55,7 @@ export const actions = {
 							paid: paid
 					},
 					$push: { 
-							players: {nombre: name, fecha: fullDate, email: email, sortDate: new Date()}
+							players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 						},
 				}
 			);	
@@ -145,7 +146,6 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 			user: dataUser,
 			payments: dataPayments,
 			joined: joined,
-			joinedWaitlist: joinedWaitlist,
 			localsData: localsData
 	}
 }

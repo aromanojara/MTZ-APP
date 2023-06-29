@@ -10,6 +10,7 @@
 	let playersWaitList = data.trainings[0].playersWaitList
 	let attendance = parseInt(data.trainings[0].attendance);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
+	let picture = data.user[0].foto
 	let joined = data.joined;
 	let joinedWaitlist = data.joinedWaitlist;
 
@@ -86,7 +87,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -99,7 +100,7 @@
 									<div style="display: flex; padding-left: 18px;">
 										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-											<i class="fa-solid fa-user"></i>
+											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
 										<p>{player.nombre}</p>
 									</div>
@@ -127,6 +128,7 @@
 						<form method="post" action="?/JoinClass">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
+							<input type="text" name="picture" bind:value={picture} hidden>
 							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
 								Inscribirse
 							</button>
@@ -169,7 +171,7 @@
 										<div style="display: flex; padding-left: 18px;">
 											<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 											<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-												<i class="fa-solid fa-user"></i>
+												<img class="img" src={wait.picture} alt="" referrerpolicy="no-referrer"/>
 											</div>
 											<p>{wait.nombre}</p>
 										</div>
@@ -182,7 +184,7 @@
 										<div style="display: flex; padding-left: 18px;">
 											<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
 											<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
-												<i class="fa-solid fa-user"></i>
+												<img class="img" src={wait.picture} alt="" referrerpolicy="no-referrer"/>
 											</div>
 											<p>{wait.nombre}</p>
 										</div>
@@ -209,6 +211,7 @@
 						<form method="post" action="?/JoinClassWaitList">
 							<input type="text" name="name" bind:value={name} hidden>
 							<input type="text" name="email" bind:value={localsData.email} hidden>
+							<input type="text" name="picture" bind:value={picture} hidden>
 							<button class="button-join" on:click|once={handleClick} hidden={disabled}>
 								Inscribirse
 							</button>
@@ -243,6 +246,17 @@
 </div>
 
 <style>
+
+	.img {
+		display: flex;
+		margin: auto;
+		justify-content: center;
+		height: 25px;
+		width: 25px;
+		border-radius: 50%;
+		object-fit: contain;
+		background: #dfdfdf;
+	}
 
 	.button-dropout {
 		background: white;

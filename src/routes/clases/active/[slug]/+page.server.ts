@@ -7,11 +7,13 @@ import { redirect } from "@sveltejs/kit";
 
 export const actions = {
 
-    JoinClass: async (event, params) => {
+    JoinClass: async (event, params, locals) => {
+		
 		
         const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		let dataTrainings = await trainings.find({_id: new ObjectId(event.params.slug) }).toArray();
 
@@ -33,7 +35,7 @@ export const actions = {
 						attendance: attendance
 				},
 				$push: { 
-						players: {nombre: name, fecha: fullDate, email: email, sortDate: new Date()}
+						players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
 			}
 		);	
@@ -73,6 +75,7 @@ export const actions = {
         const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		// let dataTrainings = await trainings.find({_id: new ObjectId(event.params.slug) }).toArray();
 		// const quotaLeft = parseInt(dataTrainings[0].quotaLeft) - 1;
@@ -88,7 +91,7 @@ export const actions = {
 			{ _id: new ObjectId(event.params.slug) },
 			{
 				$push: { 
-						playersWaitList: {nombre: name, fecha: fullDate, email: email, sortDate: new Date()}
+						playersWaitList: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
 			}
 		);	
