@@ -51,7 +51,7 @@ export const actions = {
 				{ _id: new ObjectId(event.params.slug) },
 				{
 					$set:{
-							quota: quota,
+							quotaLeft: quotaLeft,
 							paid: paid
 					},
 					$push: { 
