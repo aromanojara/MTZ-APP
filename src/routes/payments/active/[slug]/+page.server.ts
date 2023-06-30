@@ -80,7 +80,7 @@ export const actions = {
 			{ 
 				$pull: { 'players': { email: email } },
 				$set:{
-					quota: quota,
+					quotaLeft: quotaLeft,
 					paid: paid	
 				}
 			}
