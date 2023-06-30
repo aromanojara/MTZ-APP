@@ -51,7 +51,7 @@
 								<i class="fa-solid fa-money-bill-wave"></i> {payment.amount}
 							</div>
 							<div class="clases-icon-column">
-								<i class="fa-solid fa-users"></i> {payment.quota} Pendientes
+								<i class="fa-solid fa-users"></i> {payment.quotaLeft} Pendientes
 							</div>
 							<div class="clases-icon-column-right">
 								<i class="fa-solid fa-calendar-days"></i> {payment.fecha}
