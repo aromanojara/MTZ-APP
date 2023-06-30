@@ -72,7 +72,7 @@ export const actions = {
 
 		let dataPayments = await payments.find({_id: new ObjectId(event.params.slug) }).toArray();
 
-		const quota = parseInt(dataPayments[0].quota) + 1;
+		const quotaLeft = parseInt(dataPayments[0].quotaLeft) + 1;
 		const paid = parseInt(dataPayments[0].paid) - 1;	
 
 		await payments.updateOne(
