@@ -12,7 +12,7 @@
 
 <div class="index">
 
-	<div in:fade style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
+	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		<div class="title-container">
 			<i class="fa-solid fa-calendar-days" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
 			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Eventos</p>

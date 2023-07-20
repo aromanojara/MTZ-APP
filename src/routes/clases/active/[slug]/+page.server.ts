@@ -135,7 +135,7 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 	let joined = false;
 	let joinedWaitlist = false;
 	let dataUser = await users.find({ _id: localsData.email }).toArray();
-
+	
 	let dataTrainings = await trainings.find({_id: new ObjectId(params.slug) }).toArray();
 	// Formatting Date and Hour
 	

@@ -8,6 +8,14 @@
 
 	let players = data.payments[0].players
 	let paid = parseInt(data.payments[0].paid);
+	let name = data.user[0].nombre + " " + data.user[0].apellido
+	let joined = data.joined;
+
+	let disabled = false;
+	function handleClick() {
+		disabled = true;
+    }
+
 
 </script>
 
@@ -111,6 +119,19 @@
 				</div>
 			</div>
 			<!-- Inscritos planes -->
+
+			{#if joined}
+					<div id="dropoutContainer" class="button-container">
+						<form method="post" action="?/LeaveClass">
+							<input type="text" name="name" bind:value={name} hidden>
+							<input type="text" name="email" bind:value={localsData.email} hidden>
+							<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
+								Me equivoqué, aún no pago
+							</button>
+						</form>
+					</div>
+			{/if}
+
 		</div>
 	</div>
 
@@ -126,6 +147,24 @@
 </div>
 
 <style>
+
+	.button-container {
+		width: 90%;
+		background-color: transparent;
+		margin: auto;
+	}
+
+	.button-dropout {
+		background: white;
+		color: #B54545;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		border-radius: 6px;
+		width: 100%;
+		height: 40px;
+		border-color: #B54545;
+		font-weight: bold;
+		border-style: solid;
+	}
 
 	.img {
 		display: flex;
