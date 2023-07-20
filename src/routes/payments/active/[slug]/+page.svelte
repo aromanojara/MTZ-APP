@@ -73,7 +73,7 @@
 		<div style="display: flex; justify-content: center; padding-bottom: 15px; user-select: text;">
 			<!-- Make prettier? -->
 			<div class="payment-info">
-				<div style="user-select: text;">Angelo Romano</div>
+				<div>Angelo Romano</div>
 				<div>19.624.481-6</div>
 				<div>Bci / Banco Crédito e Inversiones</div>
 				<div>Cuenta Vista</div>
