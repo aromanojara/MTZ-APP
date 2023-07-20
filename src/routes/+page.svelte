@@ -239,20 +239,6 @@
 		font-weight: bold;
 	}
 
-	/* .recover_email {
-		display: flex;
-		justify-content: center;
-
-	}
-
-	.recover_email a{
-		font-weight:100;
-	}
-
-	.recover_email a:visited {
-	color: black;
-	} */
-
 	img{
 		display: flex;
 		width: 174px;
