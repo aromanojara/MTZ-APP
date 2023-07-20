@@ -27,7 +27,6 @@
 
 	<div in:fade style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		
-	
 		<div class="back-container">
 			<a href="/payments/active" class="left-arrow"><i class="fa-solid fa-arrow-left"></i></a>
 			<a href="/payments/active" class="left-arrow-text"><p>Volver al listado</p></a>
