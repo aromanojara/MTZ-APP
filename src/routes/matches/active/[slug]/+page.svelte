@@ -29,8 +29,7 @@
 		
 	
 		<div class="back-container">
-			<a href="/matches/active" class="left-arrow"><i class="fa-solid fa-arrow-left"></i></a>
-			<a href="/matches/active" class="left-arrow-text"><p>Volver al listado</p></a>
+			<a href="/matches/active" class="left-arrow"><i class="fa-solid fa-arrow-left"></i>Volver al listado</a>
 		</div>
 		
 
@@ -339,34 +338,25 @@
 		display: flex;
 		flex-direction: row;
 		text-align: center;
-		margin-bottom: -15px;
 	}
 
 	.back-container {
 		display: flex;
 		flex-direction: row;
 		text-align: center;
-		margin-bottom: -30px;
-		margin-top: 8px;
+		margin-top: 22px;
+		margin-left: 22px;
+    	margin-bottom: 0px;
 	}
 
 	.left-arrow {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: center;
-		padding-right: 8px;
-		padding-left: 22px;
-		font-size: 24px;
-		font-weight: 600;
-		line-height: 11px;
-		color: #B54545;
-		text-decoration: none;
-	}
-
-	.left-arrow-text{
+		align-items: center;
+		gap: 6px;
 		font-size: 16px;
 		font-weight: 600;
-		line-height: 39px;
 		color: #B54545;
 		text-decoration: none;
 	}

@@ -1,5 +1,5 @@
 <script>
-	
+	import { fade } from "svelte/transition";
 </script>
 
 <head>
@@ -7,7 +7,11 @@
 </head>
 
 <body style="user-select: text;">
-	<div class="index">
+	<div in:fade class="index">
+
+		<div class="back-container">
+			<a href="/" class="left-arrow"><i class="fa-solid fa-arrow-left"></i>Volver</a>
+		</div>
 
 		<div class="img_container">
 			<img src="/logo.webp" alt="Logo MTZ">
@@ -46,6 +50,25 @@
 
 
 <style>
+
+	.back-container {
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+		margin-top: 18px;
+	}
+
+	.left-arrow {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 6px;
+		font-size: 20px;
+		font-weight: 600;
+		color: #B54545;
+		text-decoration: none;
+	}
 
 	h2, h3, h4 {
 		display: flex;

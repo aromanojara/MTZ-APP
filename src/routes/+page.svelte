@@ -1,12 +1,12 @@
 <script>
-	
+	import { fade } from "svelte/transition";
 </script>
 
 <head>
 	<title>Login ─ MTZ</title>
 </head>
 
-<div class="index">
+<div in:fade class="index">
 
 	<div class="img_container">
 		<img src="/logo.webp" alt="Logo MTZ">
@@ -50,9 +50,27 @@
 
 	</div>
 
+	<div class="privacy-container">
+		<a class="privacy-text" href="/privacy">Términos y condiciones</a>
+	</div>
+
 </div>
 
 <style>
+
+	.privacy-text {
+		color: black;
+		text-decoration: underline;
+    	text-decoration-color: #F1C40F;
+	}
+
+	.privacy-container {
+		position: absolute;
+        bottom: 0;
+        width: 100%;
+		padding: 15px 0;
+		text-align: center;
+	}
 
 	hr.solid {
 		border: 1px solid #F1C40F;
@@ -166,7 +184,6 @@
 
 	.email {
 		background: #ffffff;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		border-radius: 6px;
 		width: 100%;
 		height: 40px;
@@ -184,7 +201,6 @@
 
 	.password {
 		background: #ffffff;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		border-radius: 6px;
 		width: 100%;
 		height: 40px;
