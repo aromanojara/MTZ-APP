@@ -41,7 +41,7 @@
 		
 		<div style="display: flex; justify-content: center; padding-bottom: 15px;">
 			<!-- Make prettier? -->
-			<div class="clases-container" style="cursor: pointer;">
+			<div class="clases-container">
 				<div class="clases-place">
 					{payments[0].place}
 				</div>
@@ -61,6 +61,24 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+
+
+		<div class="title-container">
+			<i class="fa-solid fa-circle-info" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 21px; font-weight: 600; line-height: 11px; margin-top: -14px"></i>
+			<p style="font-size: 26px; font-weight: 600; line-height: 26px; margin-top: 10px;">Datos de transferencia</p>
+		</div>
+
+		<div style="display: flex; justify-content: center; padding-bottom: 15px; user-select: text;">
+			<!-- Make prettier? -->
+			<div class="payment-info">
+				<div style="user-select: text;">Angelo Romano</div>
+				<div>19.624.481-6</div>
+				<div>Bci / Banco Crédito e Inversiones</div>
+				<div>Cuenta Vista</div>
+				<div>777019624481</div>
+				<div>Mestizxsvolei@gmail.com</div>
 			</div>
 		</div>
 
@@ -288,6 +306,17 @@
 		flex-direction: column;
 	}
 
+	.payment-info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height:10rem;
+		background-color: #FFFFFF;
+		border-radius: 6px;
+		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+		width: 90%;
+		flex-direction: column;
+	}
 	
 
 	.index {
