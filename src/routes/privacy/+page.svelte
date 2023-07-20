@@ -47,13 +47,13 @@
 
 <style>
 
-	h3, h4 {
+	h2, h3, h4 {
 		display: flex;
 		justify-content: left;
 		align-items: center;
 	}
 
-	h1, h2, p {
+	h1, p {
 		display: flex;
 		justify-content: center;
 		align-items: center;
