@@ -81,7 +81,7 @@
 		</div>
 
 		<!-- wrapper fixes scroll hiding players card with footer -->
-		<div id="wrapper" style="margin-bottom: 66px">
+		<div id="wrapper" style="margin-bottom: 108px">
 
 			<!-- Inscritos planes -->
 
@@ -100,28 +100,26 @@
 						{#each players as player}
 							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
 								<div class="name-time-yellow">
-									<div style="display: flex; padding-left: 18px;">
-										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+									<div class="img-name-container">
+										<div class="img-container">
 											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
-										<p>{player.nombre}</p>
+										<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{player.nombre}</p>
 									</div>
 									<div style="padding-right: 18px;">
-										<p>{player.fecha}</p>
+										<p style="white-space: nowrap;">{player.fecha}</p>
 									</div>
 								</div>
 							{:else}
 								<div class="name-time">
-									<div style="display: flex; padding-left: 18px;">
-										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+									<div class="img-name-container">
+										<div class="img-container">
 											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
-										<p>{player.nombre}</p>
+										<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{player.nombre}</p>
 									</div>
 									<div style="padding-right: 18px;">
-										<p>{player.fecha}</p>
+										<p style="white-space: nowrap;">{player.fecha}</p>
 									</div>
 								</div>
 							{/if}
@@ -181,6 +179,21 @@
 </div>
 
 <style>
+
+	.img-name-container {
+		display: flex;
+		padding-left: 18px;
+		padding-right: 15px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.img-container {
+		display: flex;
+		align-items: center;
+		margin-right: 12px;
+	}
 
 	.img {
 		display: flex;

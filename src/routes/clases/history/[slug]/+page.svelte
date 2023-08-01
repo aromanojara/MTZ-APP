@@ -54,7 +54,7 @@
 		</div>
 
 		<!-- wrapper fixes scroll hiding players card with footer -->
-		<div id="wrapper" style="margin-bottom: 66px">
+		<div id="wrapper" style="margin-bottom: 108px">
 			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
 				<div class="clases-container-players">
 
@@ -70,28 +70,26 @@
 							{#each players as player}
 							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
 								<div class="name-time-yellow">
-									<div style="display: flex; padding-left: 18px;">
-										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+									<div class="img-name-container">
+										<div class="img-container">
 											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
-										<p>{player.nombre}</p>
+										<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{player.nombre}</p>
 									</div>
 									<div style="padding-right: 18px;">
-										<p>{player.fecha}</p>
+										<p style="white-space: nowrap;">{player.fecha}</p>
 									</div>
 								</div>
 							{:else}
 								<div class="name-time">
-									<div style="display: flex; padding-left: 18px;">
-										<!-- FIX text-overflow: ellipsis; white-space: nowrap; -->
-										<div style="display: flex; align-items: center; margin-right: 12px; text-overflow: ellipsis; white-space: nowrap;">
+									<div class="img-name-container">
+										<div class="img-container">
 											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
 										</div>
-										<p>{player.nombre}</p>
+										<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{player.nombre}</p>
 									</div>
 									<div style="padding-right: 18px;">
-										<p>{player.fecha}</p>
+										<p style="white-space: nowrap;">{player.fecha}</p>
 									</div>
 								</div>
 							{/if}
@@ -121,6 +119,21 @@
 
 <style>
 
+	.img-name-container {
+		display: flex;
+		padding-left: 18px;
+		padding-right: 15px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.img-container {
+		display: flex;
+		align-items: center;
+		margin-right: 12px;
+	}
+
 	.img {
 		display: flex;
 		margin: auto;
@@ -130,35 +143,6 @@
 		border-radius: 50%;
 		object-fit: contain;
 		background: #dfdfdf;
-	}
-
-	.button-dropout {
-		background: white;
-		color: #B54545;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-		border-radius: 6px;
-		width: 100%;
-		height: 40px;
-		border-color: #B54545;
-		font-weight: bold;
-		border-style: solid;
-	}
-
-	.button-join {
-		background: #B54545;
-		color: white;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-		border-radius: 6px;
-		width: 100%;
-		height: 40px;
-		border-color: transparent;
-		font-weight: bold;
-	}
-
-	.button-container {
-		width: 90%;
-		background-color: transparent;
-		margin: auto;
 	}
 
 	.name-time {
