@@ -151,6 +151,7 @@
 		width: 90%;
 		background-color: transparent;
 		margin: auto;
+		padding-bottom: 30px;
 	}
 
 	.button-dropout {
