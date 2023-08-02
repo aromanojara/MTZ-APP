@@ -117,8 +117,8 @@
 			<!-- Inscritos planes -->
 
 			<!-- Botones planes -->
-			{#if attendance < 18}
-				{#if !joined && attendance < 18}
+			{#if attendance < events[0].quota}
+				{#if !joined && attendance < events[0].quota}
 					<div id="joinContainer" class="button-container">
 						<form method="post" action="?/JoinClass">
 							<input type="text" name="name" bind:value={name} hidden>
@@ -241,12 +241,6 @@
 	}
 
 	.players-count {
-		font-weight: 600;
-		font-size: 16px;
-		margin-left: 17px;
-	}
-
-	.players-count-waitlist {
 		font-weight: 600;
 		font-size: 16px;
 		margin-left: 17px;

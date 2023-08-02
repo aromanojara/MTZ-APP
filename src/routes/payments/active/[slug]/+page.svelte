@@ -136,8 +136,8 @@
 			<!-- Inscritos planes -->
 
 			<!-- Botones planes -->
-			{#if paid < 18}
-				{#if !joined && paid < 18}
+			{#if paid < payments[0].quota}
+				{#if !joined && paid < payments[0].quota}
 					<div id="joinContainer" class="button-container">
 						<form method="post" action="?/JoinClass">
 							<input type="text" name="name" bind:value={name} hidden>
