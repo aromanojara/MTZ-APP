@@ -1,6 +1,5 @@
 <script lang="ts">
     import { loop_guard } from 'svelte/internal';
-	import { page } from '$app/stores';
 	import { fade } from "svelte/transition";
 
 	export let data;
@@ -8,6 +7,7 @@
 	// console.log($page.data);	
 	let localsData = data.localsData;
 	let players = data.trainings[0].players;
+	let playersWaitList = data.trainings[0].playersWaitList
 	let attendance = parseInt(data.trainings[0].attendance);
 
 </script>
@@ -103,6 +103,53 @@
 				</div>
 			</div>
 
+			<div style="display: flex; justify-content: center; padding-bottom: 15px; padding-top: 35px;">
+				<div class="clases-container-players">
+
+					<div>
+						<p class="players-count-waitlist">Lista de espera (Pase Diario)</p>
+					</div>
+					
+					<!-- wrapper makes div height dynamic -->
+					<div id="wrapper">
+
+						{#if playersWaitList.length >= 1}
+						<!-- for each player -->
+							{#each playersWaitList as wait}
+								{#if wait.nombre == localsData.name + ' ' + localsData.lastName}
+									<div class="name-time-yellow">
+										<div class="img-name-container">
+											<div class="img-container">
+												<img class="img" src={wait.picture} alt="" referrerpolicy="no-referrer"/>
+											</div>
+											<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{wait.nombre}</p>
+										</div>
+										<div style="padding-right: 18px;">
+											<p style="white-space: nowrap;">{wait.fecha}</p>
+										</div>
+									</div>
+								{:else}
+									<div class="name-time">
+										<div class="img-name-container">
+											<div class="img-container">
+												<img class="img" src={wait.picture} alt="" referrerpolicy="no-referrer"/>
+											</div>
+											<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{wait.nombre}</p>
+										</div>
+										<div style="padding-right: 18px;">
+											<p style="white-space: nowrap;">{wait.fecha}</p>
+										</div>
+									</div>
+								{/if}
+							{/each}
+						{:else}
+							<!-- display nothing -->
+							<div class="name-time-attendance"></div>
+						{/if}
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 
@@ -162,6 +209,12 @@
 	}
 
 	.players-count {
+		font-weight: 600;
+		font-size: 16px;
+		margin-left: 17px;
+	}
+
+	.players-count-waitlist {
 		font-weight: 600;
 		font-size: 16px;
 		margin-left: 17px;

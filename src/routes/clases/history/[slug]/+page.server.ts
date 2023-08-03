@@ -13,6 +13,7 @@ export const load: PageServerLoad = async function({ params, locals }) {
 
 	const localsData = locals.user
 	let joined = false;
+	let joinedWaitlist = false;
 	let dataUser = await users.find({ _id: localsData.email }).toArray();
 	
 	let dataTrainings = await trainings.find({_id: new ObjectId(params.slug) }).toArray();
@@ -31,6 +32,14 @@ export const load: PageServerLoad = async function({ params, locals }) {
 
 	// Replace with sorted dict
 	dataTrainings[0].players = sortedPlayers
+
+	// Sort wait list players by joined Date
+	const sortedPlayersWaitList = dataTrainings[0].playersWaitList.sort(
+		(objA, objB) => Number(objA.sortDate) - Number(objB.sortDate),
+		);
+
+	// Replace with sorted dict
+	dataTrainings[0].playersWaitList = sortedPlayersWaitList
 
 	// Check if player joined main list
 	if (dataTrainings[0].players.length >= 1) {
@@ -51,11 +60,33 @@ export const load: PageServerLoad = async function({ params, locals }) {
 	} else {
 		joined = false;
 	}
+
+	// Check if player joined wait list only if not in main list
+	if (joined == false) {
+		if (dataTrainings[0].playersWaitList.length >= 1) {
+			for (let index = 0; index <= dataTrainings[0].playersWaitList.length; index++){
+			
+				// Check with email
+				try {
+					if (dataTrainings[0].playersWaitList[index].email == localsData.email) {
+						joinedWaitlist = true;
+						break
+					}
+				} catch (error) {
+					joinedWaitlist = false;
+				}
+					
+			}
+		} else {
+			joinedWaitlist = false;
+		}
+	}
 	
 	return{
 		user: dataUser,
 		trainings: dataTrainings,
 		joined: joined,
+		joinedWaitlist: joinedWaitlist,
 		localsData: localsData
 	}
 }
