@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { fade } from "svelte/transition";
+    import MainCard from "../../../../components/MainCard.svelte";
+    import PlayersList from "../../../../components/PlayersList.svelte";
 
 	export let data;
 	$: ({matches} = data);
@@ -30,78 +32,12 @@
 		</div>
 		
 		<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-			<!-- Make prettier? -->
-			<div class="clases-container" style="cursor: pointer;">
-				<div class="clases-place">
-					{matches[0].place}
-				</div>
-				<div class="clases-title">
-					{matches[0].title}
-				</div>
-				<div class="clases-icon-row">
-					<div class="clases-icon-column-left">
-						<i class="fa-regular fa-clock"></i> {matches[0].hora}
-					</div>
-					<div class="clases-icon-column">
-						<i class="fa-solid fa-users"></i> {matches[0].quotaLeft} Cupos
-					</div>
-					<div class="clases-icon-column-right">
-						<i class="fa-solid fa-calendar-days"></i> {matches[0].fecha}
-					</div>
-				</div>
-			</div>
+			<MainCard href="" place={matches[0].place} title={matches[0].title} time={matches[0].hora} quotaLeft={matches[0].quotaLeft} date={matches[0].fecha}/>
 		</div>
 
 		<!-- wrapper fixes scroll hiding players card with footer -->
 		<div id="wrapper" style="margin-bottom: 108px">
-			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-				<div class="clases-container-players">
-
-					<div>
-						<p class="players-count">Jugadores Inscritos ({attendance}/{matches[0].quota})</p>
-					</div>
-					
-					<!-- wrapper makes div height dynamic -->
-					<div id="wrapper">
-
-						{#if attendance >= 1}
-						<!-- for each player -->
-							{#each players as player}
-							{#if player.nombre == localsData.name + ' ' + localsData.lastName}
-								<div class="name-time-yellow">
-									<div class="img-name-container">
-										<div class="img-container">
-											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
-										</div>
-										<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{player.nombre}</p>
-									</div>
-									<div style="padding-right: 18px;">
-										<p style="white-space: nowrap;">{player.fecha}</p>
-									</div>
-								</div>
-							{:else}
-								<div class="name-time">
-									<div class="img-name-container">
-										<div class="img-container">
-											<img class="img" src={player.picture} alt="" referrerpolicy="no-referrer"/>
-										</div>
-										<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{player.nombre}</p>
-									</div>
-									<div style="padding-right: 18px;">
-										<p style="white-space: nowrap;">{player.fecha}</p>
-									</div>
-								</div>
-							{/if}
-							{/each}
-							{:else}
-							<!-- display nothing -->
-							<div class="name-time-attendance"></div>
-						{/if}
-						
-					</div>
-				</div>
-			</div>
-
+			<PlayersList title="Jugadores Inscritos" attendance={attendance} quota={matches[0].quota} players={players} localsData={localsData} />
 		</div>
 	</div>
 
@@ -117,106 +53,6 @@
 </div>
 
 <style>
-
-	.img-name-container {
-		display: flex;
-		padding-left: 18px;
-		padding-right: 15px;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
-	}
-
-	.img-container {
-		display: flex;
-		align-items: center;
-		margin-right: 12px;
-	}
-
-	.img {
-		display: flex;
-		margin: auto;
-		justify-content: center;
-		height: 25px;
-		width: 25px;
-		border-radius: 50%;
-		object-fit: contain;
-		background: #dfdfdf;
-	}
-
-	.name-time {
-		display: flex; 
-		justify-content: space-between;
-		margin-top: -15px;
-		color: #B54545;
-		font-weight: bold;
-	}
-
-	.name-time-yellow {
-		display: flex; 
-		justify-content: space-between;
-		margin-top: -15px;
-		color: #F1C40F;
-		font-weight: bold;
-	}
-
-	.players-count {
-		font-weight: 600;
-		font-size: 16px;
-		margin-left: 17px;
-	}
-
-	.clases-container-players {
-		display: flex;
-		background-color: #FFFFFF;
-		border-radius: 6px;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-		width: 90%;
-		flex-direction: column;
-	}
-
-	.clases-place{
-		display: flex;
-		margin-right: auto;
-		padding-left: 18px;
-		font-size: 12px;
-	}
-
-	.clases-title {
-		display: flex;
-		font-weight: 500;
-		margin-right: auto;
-		padding-left: 18px;
-		font-size: 16px;
-	}
-
-	.clases-icon-row {
-		display: flex;
-  		justify-content: space-between;
-		width: 100%;
-		font-size: 14px;
-
-	}
-
-	.clases-icon-column-left {
-		padding-left: 18px;
-	}
-	
-	.clases-icon-column-right {
-		padding-right: 18px;
-	}
-
-	.clases-container {
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		height: 7rem;
-		background-color: #FFFFFF;
-		border-radius: 6px;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-		width: 90%;
-		flex-direction: column;
-	}
 
 	.index {
     	display: flex;

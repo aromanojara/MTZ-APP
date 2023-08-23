@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fade } from "svelte/transition";
+    import MainCard from "../../../components/MainCard.svelte";
 	export let data;
 	$: ({events} = data);
 	
@@ -37,25 +38,7 @@
 
 		{#each events as event}
 			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-				<a href="/events/history/{event._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
-					<div class="clases-place">
-						{event.place}
-					</div>
-					<div class="clases-title">
-						{event.title}
-					</div>
-					<div class="clases-icon-row">
-						<div class="clases-icon-column-left">
-							<i class="fa-regular fa-clock"></i> {event.hora}
-						</div>
-						<div class="clases-icon-column">
-							<i class="fa-solid fa-users"></i> {event.quotaLeft} Cupos
-						</div>
-						<div class="clases-icon-column-right">
-							<i class="fa-solid fa-calendar-days"></i> {event.fecha}
-						</div>
-					</div>
-				</a>
+				<MainCard href="/events/history/{event._id}" place={event.place} title={event.title} time={event.hora} quotaLeft={event.quotaLeft} date={event.fecha}/>
 			</div>
 		{/each}
 

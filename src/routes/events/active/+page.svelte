@@ -1,5 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
+    import MainCard from "../../../components/MainCard.svelte";
 
 	export let data;
 	$: ({events} = data);
@@ -35,31 +36,11 @@
 		</div> -->
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding event card -->
-
 			{#each events as event}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<a href="/events/active/{event._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
-						<div class="clases-place">
-							{event.place}
-						</div>
-						<div class="clases-title">
-							{event.title}
-						</div>
-						<div class="clases-icon-row">
-							<div class="clases-icon-column-left">
-								<i class="fa-regular fa-clock"></i> {event.hora}
-							</div>
-							<div class="clases-icon-column">
-								<i class="fa-solid fa-users"></i> {event.quotaLeft} Cupos
-							</div>
-							<div class="clases-icon-column-right">
-								<i class="fa-solid fa-calendar-days"></i> {event.fecha}
-							</div>
-						</div>
-					</a>
+					<MainCard href="/events/active/{event._id}" place={event.place} title={event.title} time={event.hora} quotaLeft={event.quotaLeft} date={event.fecha}/>
 				</div>
 			{/each}
-
 		</div> 
 	</div>
 
@@ -75,37 +56,6 @@
 </div>
 
 <style>
-
-	.clases-place{
-		display: flex;
-		margin-right: auto;
-		padding-left: 18px;
-		font-size: 12px;
-	}
-
-	.clases-title {
-		display: flex;
-		font-weight: 500;
-		margin-right: auto;
-		padding-left: 18px;
-		font-size: 16px;
-	}
-
-	.clases-icon-row {
-		display: flex;
-  		justify-content: space-between;
-		width: 100%;
-		font-size: 14px;
-
-	}
-
-	.clases-icon-column-left {
-		padding-left: 18px;
-	}
-	
-	.clases-icon-column-right {
-		padding-right: 18px;
-	}
 
 	.history-clases {
 		background-color:#B54545;
@@ -145,18 +95,6 @@
 		border-radius: 6px;
 		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 		width: 90%;
-	}
-
-	.clases-container {
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		height: 7rem;
-		background-color: #FFFFFF;
-		border-radius: 6px;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-		width: 90%;
-		flex-direction: column;
 	}
 
 	/* .clases-finder-container {
