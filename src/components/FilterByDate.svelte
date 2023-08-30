@@ -18,6 +18,7 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
+		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 	}
 
 	input[type="month"] {
@@ -30,17 +31,16 @@
 		font-weight: bold;
 		background-color: #F1C40F;
 		border-radius: 6px;
-		padding-left: -15px;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+		padding: 0px;
 		border-style: none;
 		width: 90%;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		-webkit-appearance: none;
 	}
 
 	input[type="month"]:focus {
 		outline: none;
 	}
-
 
 	::-webkit-calendar-picker-indicator {
 		background: transparent;
@@ -53,6 +53,10 @@
 		right: 0;
 		top: 0;
 		width: auto;
+	}
+
+	::-webkit-datetime-edit {
+		padding: 0px;
 	}
 
 </style>

@@ -29,10 +29,10 @@ export const actions = {
 
 export const load: PageServerLoad = async function({locals}) {
 
-	// if (!locals.user) {
-	// 	throw redirect(302, "/")
+	if (!locals.user) {
+		throw redirect(302, "/")
 		
-	// }
+	}
 	
 	let result = new Date().toLocaleDateString("es-CL", { year: "numeric", month: "2-digit", day: "2-digit"}).slice(3).split("-")
 	let filterDate = result[1] + "-" + result[0]
