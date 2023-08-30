@@ -39,7 +39,7 @@
 
 			{#each matches as match}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<MainCard href="/matches/active/{match._id}" place={match.place} title={match.title} time={match.hora} quotaLeft={match.quotaLeft} date={match.fecha}/>
+					<MainCard href="/matches/active/{match._id}" place={match.place} title={match.title} time={match.hora} quotaLeft={match.quotaLeft} date={match.fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>
 				</div>
 			{/each}
 

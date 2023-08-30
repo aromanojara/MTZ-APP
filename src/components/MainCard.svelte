@@ -5,6 +5,9 @@
 	export let time
 	export let quotaLeft
 	export let date
+	export let leftIcon
+	export let centerIconText
+	
 </script>
 
 <a href={href} class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
@@ -16,10 +19,10 @@
 	</div>
 	<div class="clases-icon-row">
 		<div class="clases-icon-column-left">
-			<i class="fa-regular fa-clock"></i> {time}
+			<i class={leftIcon}></i> {time}
 		</div>
 		<div>
-			<i class="fa-solid fa-users"></i> {quotaLeft} Cupos
+			<i class="fa-solid fa-users"></i> {quotaLeft} {centerIconText}
 		</div>
 		<div class="clases-icon-column-right">
 			<i class="fa-solid fa-calendar-days"></i> {date}

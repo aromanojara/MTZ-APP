@@ -3,6 +3,7 @@
 	export let name
 	export let email
 	export let picture
+	export let text
 	
 	let disabled = false
 
@@ -18,7 +19,7 @@
 		<input type="text" name="email" bind:value={email} hidden>
 		<input type="text" name="picture" bind:value={picture} hidden>
 		<button class="button-join" on:click|once={handleClick} hidden={disabled}>
-			Inscribirse
+			{text}
 		</button>
 	</form>
 </div>

@@ -39,7 +39,7 @@
 		</div>
 		
 		<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-			<MainCard href="" place={trainings[0].place} title={trainings[0].title} time={trainings[0].hora} quotaLeft={trainings[0].quotaLeft} date={trainings[0].fecha}/>		
+			<MainCard href="" place={trainings[0].place} title={trainings[0].title} time={trainings[0].hora} quotaLeft={trainings[0].quotaLeft} date={trainings[0].fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>		
 		</div>
 
 		<!-- wrapper fixes scroll hiding players card with footer -->
@@ -52,10 +52,10 @@
 			<!-- Botones planes -->
 			{#if !joinedWaitlist && attendance < trainings[0].quota}
 				{#if !joined && attendance < trainings[0].quota}
-					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} />
+					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} text={"Inscribirse"} />
 				{/if}
 				{#if joined}
-					<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} />
+					<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} text={"Desinscribirse"}/>
 				{/if}
 			{/if}
 			<!-- Botones planes -->
@@ -66,10 +66,10 @@
 
 			{#if !joined && attendance < trainings[0].quota}
 				{#if !joinedWaitlist && attendance < trainings[0].quota}
-					<JoinButton action="?/JoinClassWaitList" name={name} email={localsData.email} picture={picture}/>
+					<JoinButton action="?/JoinClassWaitList" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
 				{/if}
 				{#if joinedWaitlist}					
-					<LeaveButton action="?/LeaveClassWaitList" name={name} email={localsData.email} />
+					<LeaveButton action="?/LeaveClassWaitList" name={name} email={localsData.email} text={"Desinscribirse"}/>
 				{/if}
 			{/if}
 		</div>

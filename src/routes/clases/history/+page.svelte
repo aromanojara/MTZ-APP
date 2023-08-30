@@ -1,9 +1,17 @@
 <script lang="ts">
 	import { fade } from "svelte/transition";
     import MainCard from "../../../components/MainCard.svelte";
+    import FilterByDate from "../../../components/FilterByDate.svelte";
+	
+	export let form
 	export let data;
 	$: ({trainings} = data);
-	
+
+	// If data is filtered by date, then replace it with the new one
+	if (form !== null) {
+		data = form
+	}
+
 </script>
 
 <head>
@@ -25,22 +33,15 @@
 			</div>
 		</div>
 
-		<!-- <div style="display: flex; justify-content: center;">
-			<a href="/" style="width: 100%; display: flex; justify-content: space-evenly; align-items: left; margin-top: 20px; margin-bottom: 20px; text-decoration: none;">
-				<div class="clases-finder-container" style=" justify-content: flex-start;">
-					<i class="fa-solid fa-calendar-days" style="display: flex; margin-left: 25px; margin-right: px; color: white; font-size: 20px"></i>
-					<h4 style="margin-top: 2px; margin-bottom: 0px; margin-left: 9px; margin-right: 9px; color: white; ">Filtrar por fecha</h4>
-				</div>
-			</a>
-		</div> -->
+		<FilterByDate filterDate={data.filterDate} />
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
 
-		{#each trainings as training}
-			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-				<MainCard href="/clases/history/{training._id}" place={training.place} title={training.title} time={training.hora} quotaLeft={training.quotaLeft} date={training.fecha}/>
-			</div>
-		{/each}
+			{#each trainings as training}
+				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
+					<MainCard href="/clases/history/{training._id}" place={training.place} title={training.title} time={training.hora} quotaLeft={training.quotaLeft} date={training.fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>
+				</div>
+			{/each}
 
 		</div> 
 	</div>
@@ -57,9 +58,8 @@
 </div>
 
 <style>
-
+	
 	.history-clases {
-		
         background-color: white;
 		color: #B54545;
 		border-radius: 4px;
@@ -99,7 +99,7 @@
 		width: 90%;
 	}
 
-	/* .clases-finder-container {
+	.clases-finder-container {
 		display: flex;
 		justify-content: space-evenly;
 		align-items: center;
@@ -109,7 +109,7 @@
 		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 		width: 90%;
 		
-	} */
+	}
 
 	.index {
     	display: flex;

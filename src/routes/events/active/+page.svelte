@@ -38,7 +38,7 @@
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding event card -->
 			{#each events as event}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<MainCard href="/events/active/{event._id}" place={event.place} title={event.title} time={event.hora} quotaLeft={event.quotaLeft} date={event.fecha}/>
+					<MainCard href="/events/active/{event._id}" place={event.place} title={event.title} time={event.hora} quotaLeft={event.quotaLeft} date={event.fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>
 				</div>
 			{/each}
 		</div> 

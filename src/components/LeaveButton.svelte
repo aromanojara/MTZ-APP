@@ -2,6 +2,7 @@
 	export let action
 	export let name
 	export let email
+	export let text
 	
 	let disabled = false
 
@@ -16,7 +17,7 @@
 		<input type="text" name="name" bind:value={name} hidden>
 		<input type="text" name="email" bind:value={email} hidden>
 		<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
-			Desinscribirse
+			{text}
 		</button>
 	</form>
 </div>

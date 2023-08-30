@@ -1,8 +1,16 @@
 <script lang="ts">
 	import { fade } from "svelte/transition";
     import MainCard from "../../../components/MainCard.svelte";
+	import FilterByDate from "../../../components/FilterByDate.svelte";
+
+	export let form
 	export let data;
 	$: ({events} = data);
+
+	// If data is filtered by date, then replace it with the new one
+	if (form !== null) {
+		data = form
+	}
 	
 </script>
 
@@ -25,20 +33,13 @@
 			</div>
 		</div>
 
-		<!-- <div style="display: flex; justify-content: center;">
-			<a href="/" style="width: 100%; display: flex; justify-content: space-evenly; align-items: left; margin-top: 20px; margin-bottom: 20px; text-decoration: none;">
-				<div class="clases-finder-container" style=" justify-content: flex-start;">
-					<i class="fa-solid fa-calendar-days" style="display: flex; margin-left: 25px; margin-right: px; color: white; font-size: 20px"></i>
-					<h4 style="margin-top: 2px; margin-bottom: 0px; margin-left: 9px; margin-right: 9px; color: white; ">Filtrar por fecha</h4>
-				</div>
-			</a>
-		</div> -->
+		<FilterByDate filterDate={data.filterDate} />
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding event card -->
 
 		{#each events as event}
 			<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-				<MainCard href="/events/history/{event._id}" place={event.place} title={event.title} time={event.hora} quotaLeft={event.quotaLeft} date={event.fecha}/>
+				<MainCard href="/events/history/{event._id}" place={event.place} title={event.title} time={event.hora} quotaLeft={event.quotaLeft} date={event.fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>
 			</div>
 		{/each}
 

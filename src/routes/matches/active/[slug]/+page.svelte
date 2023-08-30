@@ -38,7 +38,7 @@
 		</div>
 		
 		<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-			<MainCard href="" place={matches[0].place} title={matches[0].title} time={matches[0].hora} quotaLeft={matches[0].quotaLeft} date={matches[0].fecha}/>	
+			<MainCard href="" place={matches[0].place} title={matches[0].title} time={matches[0].hora} quotaLeft={matches[0].quotaLeft} date={matches[0].fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>	
 		</div>
 
 		<!-- wrapper fixes scroll hiding players card with footer -->
@@ -51,10 +51,10 @@
 			<!-- Botones -->
 			{#if attendance < matches[0].quota}
 				{#if !joined && attendance < matches[0].quota}
-					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} />
+					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
 				{/if}
 				{#if joined}
-					<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} />
+					<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} text={"Desinscribirse"}/>
 				{/if}
 			{/if}
 			<!-- Botones -->

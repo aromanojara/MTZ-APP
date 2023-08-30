@@ -31,7 +31,7 @@
 		</div>
 		
 		<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-			<MainCard href="" place={events[0].place} title={events[0].title} time={events[0].hora} quotaLeft={events[0].quotaLeft} date={events[0].fecha}/>
+			<MainCard href="" place={events[0].place} title={events[0].title} time={events[0].hora} quotaLeft={events[0].quotaLeft} date={events[0].fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>
 		</div>
 
 		<!-- wrapper fixes scroll hiding players card with footer -->

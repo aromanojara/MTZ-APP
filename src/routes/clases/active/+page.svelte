@@ -5,10 +5,7 @@
     import MainCard from "../../../components/MainCard.svelte";
 
 	export let data;
-	$: ({trainings} = data);
-
-	// console.log("data", data);
-	
+	$: ({trainings} = data);	
 </script>
 
 <head>
@@ -30,19 +27,10 @@
 			</div>
 		</div>
 
-		<!-- <div style="display: flex; justify-content: center;">
-			<a href="/" style="width: 100%; display: flex; justify-content: space-evenly; align-items: left; margin-top: 20px; margin-bottom: 20px; text-decoration: none;">
-				<div class="clases-finder-container" style=" justify-content: flex-start;">
-					<i class="fa-solid fa-calendar-days" style="display: flex; margin-left: 25px; margin-right: px; color: white; font-size: 20px"></i>
-					<h4 style="margin-top: 2px; margin-bottom: 0px; margin-left: 9px; margin-right: 9px; color: white; ">Filtrar por fecha</h4>
-				</div>
-			</a>
-		</div> -->
-
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
 			{#each trainings as training}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<MainCard href="/clases/active/{training._id}" place={training.place} title={training.title} time={training.hora} quotaLeft={training.quotaLeft} date={training.fecha}/>
+					<MainCard href="/clases/active/{training._id}" place={training.place} title={training.title} time={training.hora} quotaLeft={training.quotaLeft} date={training.fecha} leftIcon={"fa-regular fa-clock"} centerIconText={"Cupos"}/>
 				</div>
 			{/each}
 		</div> 

@@ -2,6 +2,7 @@
 	import { redirect } from "@sveltejs/kit";
     import { loop_guard } from 'svelte/internal';
     import { fade } from "svelte/transition";
+	import MainCard from "../../../components/MainCard.svelte";
 
 	export let data;
 	$: ({payments} = data);	
@@ -26,38 +27,11 @@
 			</div>
 		</div>
 
-		<!-- <div style="display: flex; justify-content: center;">
-			<a href="/" style="width: 100%; display: flex; justify-content: space-evenly; align-items: left; margin-top: 20px; margin-bottom: 20px; text-decoration: none;">
-				<div class="clases-finder-container" style=" justify-content: flex-start;">
-					<i class="fa-solid fa-calendar-days" style="display: flex; margin-left: 25px; margin-right: px; color: white; font-size: 20px"></i>
-					<h4 style="margin-top: 2px; margin-bottom: 0px; margin-left: 9px; margin-right: 9px; color: white; ">Filtrar por fecha</h4>
-				</div>
-			</a>
-		</div> -->
-
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
 
 			{#each payments as payment}
 				<div style="display: flex; justify-content: center; padding-bottom: 15px;">
-					<a href="/payments/active/{payment._id}" class="clases-container" style="cursor: pointer; text-decoration: none; color: black;">
-						<div class="clases-place">
-							{payment.place}
-						</div>
-						<div class="clases-title">
-							{payment.title}
-						</div>
-						<div class="clases-icon-row">
-							<div class="clases-icon-column-left">
-								<i class="fa-solid fa-money-bill-wave"></i> {payment.amount}
-							</div>
-							<div class="clases-icon-column">
-								<i class="fa-solid fa-users"></i> {payment.quotaLeft} Pendientes
-							</div>
-							<div class="clases-icon-column-right">
-								<i class="fa-solid fa-calendar-days"></i> {payment.fecha}
-							</div>
-						</div>
-					</a>
+					<MainCard href="/payments/active/{payment._id}" place={payment.place} title={payment.title} time={payment.amount} quotaLeft={payment.quotaLeft} date={payment.fecha} leftIcon={"fa-solid fa-money-bill-wave"} centerIconText={"Pendientes"}/>
 				</div>
 			{/each}
 
@@ -76,37 +50,6 @@
 </div>
 
 <style>
-
-	.clases-place{
-		display: flex;
-		margin-right: auto;
-		padding-left: 18px;
-		font-size: 12px;
-	}
-
-	.clases-title {
-		display: flex;
-		font-weight: 500;
-		margin-right: auto;
-		padding-left: 18px;
-		font-size: 16px;
-	}
-
-	.clases-icon-row {
-		display: flex;
-  		justify-content: space-between;
-		width: 100%;
-		font-size: 14px;
-
-	}
-
-	.clases-icon-column-left {
-		padding-left: 18px;
-	}
-	
-	.clases-icon-column-right {
-		padding-right: 18px;
-	}
 
 	.history-clases {
 		background-color:#B54545;
@@ -147,30 +90,6 @@
 		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 		width: 90%;
 	}
-
-	.clases-container {
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		height: 7rem;
-		background-color: #FFFFFF;
-		border-radius: 6px;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-		width: 90%;
-		flex-direction: column;
-	}
-
-	/* .clases-finder-container {
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		height: 3rem;
-		background-color: #F1C40F;
-		border-radius: 6px;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-		width: 90%;
-		
-	} */
 
 	.index {
     	display: flex;
