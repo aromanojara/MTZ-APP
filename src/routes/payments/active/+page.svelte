@@ -3,6 +3,7 @@
     import { loop_guard } from 'svelte/internal';
     import { fade } from "svelte/transition";
 	import MainCard from "../../../components/MainCard.svelte";
+    import Navbar from "../../../components/Navbar.svelte";
 
 	export let data;
 	$: ({payments} = data);	
@@ -16,7 +17,7 @@
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
 		<div class="title-container">
-			<i class="fa-solid fa-money-bill-wave" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 6px;"></i>
+			<i class="fa-solid fa-money-bill" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 6px;"></i>
 			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Pagos</p>
 		</div>
 
@@ -38,14 +39,7 @@
 		</div> 
 	</div>
 
-
-	<div class="icon-bar">
-		<a class="inactive" href="/clases/active"><i class="fa-solid fa-volleyball"></i><p>Clases</p></a>
-		<a class="active" href="/payments/active"><i class="fa-solid fa-money-bill-wave" style="font-weight: 600;"></i><p>Pagos</p></a>
-		<a class="inactive" href="/events/active"><i class="fa-solid fa-calendar-days" style="font-weight: 600;"></i><p>Eventos</p></a>
-		<a class="inactive" href="/matches/active"><i class="fa-solid fa-trophy" style="font-weight: 600;"></i><p>Partidos</p></a>
-		<a class="inactive" href="/profile"><i class="fa-solid fa-user" style="font-weight: 600;"></i><p>Perfil</p></a>
-	</div>
+	<Navbar selection={"payments"}/>
 
 </div>
 
@@ -96,40 +90,6 @@
 		margin: auto;
 		justify-content: center;
 		flex-direction: column;
-	}
-
-	.icon-bar {
-		position: fixed;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		background-color: #FCFCFC;
-		box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.25);
-	}
-
-	.icon-bar a {
-		float: left; /* Float links side by side */
-		text-align: center; /* Center-align text */
-		width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
-		padding: 12px 0; /* Some top and bottom padding */
-		font-size: 24px; /* Increased font size */
-		text-decoration: none;
-	}
-
-	.active {
-		background-color: #FCFCFC; /* Add an active/current color */
-		color: #B54545;
-	}
-
-	.inactive {
-		background-color: #FCFCFC; /* Add an active/current color */
-		color: black;
-	}
-
-	.icon-bar p {	
-		margin-top: 0px;
-		margin-bottom: 0px;
-		font-size: 12px;
 	}
 
 	.title-container {
