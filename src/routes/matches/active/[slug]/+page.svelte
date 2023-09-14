@@ -5,6 +5,7 @@
     import JoinButton from "../../../../components/JoinButton.svelte";
     import LeaveButton from "../../../../components/LeaveButton.svelte";
     import Navbar from "../../../../components/Navbar.svelte";
+    import WaitListPlayersList from "../../../../components/WaitListPlayersList.svelte";
 
 	export let data;
 	$: ({matches} = data);	
@@ -16,6 +17,9 @@
 	let attendance = parseInt(data.matches[0].attendance);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
 	let joined = data.joined;
+
+	let playersWaitList = data.matches[0].playersWaitList
+	let joinedWaitlist = data.joinedWaitlist;
 
 </script>
 
@@ -50,7 +54,7 @@
 			<!-- Inscritos -->
 
 			<!-- Botones -->
-			{#if attendance < matches[0].quota}
+			{#if !joinedWaitlist && attendance < matches[0].quota}
 				{#if !joined && attendance < matches[0].quota}
 					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
 				{/if}
@@ -59,6 +63,20 @@
 				{/if}
 			{/if}
 			<!-- Botones -->
+
+			<!-- Lista de espera -->
+			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} title={"Barra Oficial"}/>
+			<!-- Lista de espera -->
+
+			{#if !joined && attendance < matches[0].quota}
+				{#if !joinedWaitlist && attendance < matches[0].quota}
+					<JoinButton action="?/JoinClassWaitList" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
+				{/if}
+				{#if joinedWaitlist}					
+					<LeaveButton action="?/LeaveClassWaitList" name={name} email={localsData.email} text={"Desinscribirse"}/>
+				{/if}
+			{/if}
+
 		</div>
 	</div>
 	

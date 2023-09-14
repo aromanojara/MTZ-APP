@@ -5,7 +5,22 @@
     import Navbar from '../../components/Navbar.svelte';
 
 	export let data;
-	$: ({users} = data);
+	$: ({user} = data);
+
+	let x = 1;
+	let adminPanel;
+
+    function addToCounter() {
+		if (x === 5 && data.user[0].admin) {
+			adminPanel.click()
+		} else if (x === 5 && !data.user[0].admin) {
+			x = 1
+		} else {
+			console.log(x);
+			x++;
+		}
+	}
+
 </script>
 
 <head>
@@ -23,20 +38,21 @@
 			<div class="form_group">
 
 				<div class="img">
-					<img class="img" src="{users[0].foto}" alt="logo.png" referrerpolicy="no-referrer"/>
+					<img class="img" src="{user[0].foto}" alt="logo.png" referrerpolicy="no-referrer" on:click={addToCounter}/>
+					<a href="/admin" bind:this={adminPanel} hidden>a</a>
 				</div>
 
 				<div class="name-container">
 					<p style="margin-bottom: 6px">Nombre</p>
-					<input type="text" id="name" name="name" class="name" value="{users[0].nombre}" disabled>
+					<input type="text" id="name" name="name" class="name" value="{user[0].nombre}" disabled>
 				</div>
 				<div class="lastName-container">
 					<p style="margin-bottom: 6px">Apellido</p>
-					<input type="text" id="lastName" name="lastName" class="lastName" value="{users[0].apellido}" disabled>
+					<input type="text" id="lastName" name="lastName" class="lastName" value="{user[0].apellido}" disabled>
 				</div>
 				<div class="email-container">
 					<p style="margin-bottom: 6px">Email</p>
-					<input type="text" id="email" name="email" class="email" value="{users[0]._id}" disabled>
+					<input type="text" id="email" name="email" class="email" value="{user[0]._id}" disabled>
 				</div>
 			</div>
 			<div class="button-container">

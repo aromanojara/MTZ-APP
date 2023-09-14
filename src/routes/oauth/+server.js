@@ -44,7 +44,7 @@ async function getUserData(access_token) {
 
 }
 
-export const GET = async ({url, cookies})=>{
+export const GET = async ({url, cookies, event})=>{
 
 	const redirectURL = `${url.origin}/oauth`;
 	const code = await url.searchParams.get('code');
@@ -59,12 +59,10 @@ export const GET = async ({url, cookies})=>{
 	oAuth2Client.setCredentials(r.tokens);
 	const user = oAuth2Client.credentials;
 	cookies.set('jwt', user.id_token, {httpOnly: true, maxAge: 60*60*24, sameSite:'strict'})
-	// console.log(user);
 
 	const data = await getUserData(user.access_token);
 
 	const dataUser = await users.find({_id: data.email}).toArray();
-	//console.log("dataUser", dataUser);
 
 	if(dataUser.length == 0) {
 		await addUserToMongo(data)

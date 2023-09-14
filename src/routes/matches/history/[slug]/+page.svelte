@@ -3,12 +3,14 @@
     import MainCard from "../../../../components/MainCard.svelte";
     import PlayersList from "../../../../components/PlayersList.svelte";
     import Navbar from "../../../../components/Navbar.svelte";
+    import WaitListPlayersList from "../../../../components/WaitListPlayersList.svelte";
 
 	export let data;
 	$: ({matches} = data);
 
 	let localsData = data.localsData;
 	let players = data.matches[0].players;
+	let playersWaitList = data.matches[0].playersWaitList
 	let attendance = parseInt(data.matches[0].attendance);
 
 </script>
@@ -39,6 +41,7 @@
 		<!-- wrapper fixes scroll hiding players card with footer -->
 		<div id="wrapper" style="margin-bottom: 108px">
 			<PlayersList title="Jugadores Inscritos" attendance={attendance} quota={matches[0].quota} players={players} localsData={localsData} />
+			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} title={"Barra Oficial"}/>
 		</div>
 	</div>
 

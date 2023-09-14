@@ -2,6 +2,7 @@
 
 	export let playersWaitList
 	export let localsData
+	export let title = "Lista de espera (Pase Diario)"
 
 </script>
 
@@ -9,7 +10,7 @@
 	<div class="clases-container-players">
 
 		<div>
-			<p class="players-count-waitlist">Lista de espera (Pase Diario)</p>
+			<p class="players-count-waitlist">{title}</p>
 		</div>
 		
 		<!-- wrapper makes div height dynamic -->

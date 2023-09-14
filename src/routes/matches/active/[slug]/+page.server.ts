@@ -67,6 +67,58 @@ export const actions = {
 		
 		throw redirect (303, '/matches/active/'+event.params.slug+'');
 		
+    },
+
+	JoinClassWaitList: async (event, params) => {
+		
+        const data = await event.request.formData();
+		const name = data.get('name');
+		const email = data.get('email');
+		const picture = data.get('picture');
+
+		// let dataTrainings = await trainings.find({_id: new ObjectId(event.params.slug) }).toArray();
+		// const quotaLeft = parseInt(dataTrainings[0].quotaLeft) - 1;
+		// const attendance = parseInt(dataTrainings[0].attendance) + 1;
+		
+		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
+		const dia = date.substring(0, 5);
+		const formattedDia = dia.replace("-", "/");
+		const hora = date.substring(12, 17);
+		const fullDate = formattedDia + " " + hora
+		
+		await matches.updateOne(
+			{ _id: new ObjectId(event.params.slug) },
+			{
+				$push: { 
+						playersWaitList: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+					},
+			}
+		);	
+		
+		throw redirect (303, '/matches/active/'+event.params.slug+'');
+		
+    },
+
+	LeaveClassWaitList: async (event, params) => {
+		
+		const data = await event.request.formData();
+		const name = data.get('name');
+		const email = data.get('email');
+
+		// let dataTrainings = await trainings.find({_id: new ObjectId(event.params.slug) }).toArray();
+
+		// const quota = parseInt(dataTrainings[0].quota) + 1;
+		// const attendance = parseInt(dataTrainings[0].attendance) - 1;	
+
+		await matches.updateOne(
+			{ _id: new ObjectId(event.params.slug) },
+			{ 
+				$pull: { 'playersWaitList': { email: email } }
+			}
+		);	
+		
+		throw redirect (303, '/matches/active/'+event.params.slug+'');
+		
     }
 };
 
@@ -84,6 +136,8 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 
 	let dataMatches = await matches.find({_id: new ObjectId(params.slug) }).toArray();
 	// Formatting Date and Hour
+	console.log(dataMatches);
+	
 	
 	dataMatches[0].fecha = dataMatches[0].date.toLocaleString("es-CL", {timeZone: 'America/Santiago'}).split(',')[0].replaceAll("-", "/");
 	dataMatches[0].hora = dataMatches[0].date.toLocaleString("es-CL", {timeZone: 'America/Santiago'}).split(',')[1].slice(1, -3);	
@@ -99,6 +153,18 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 
 	// Replace with sorted dict
 	dataMatches[0].players = sortedPlayers
+
+	if (typeof dataMatches[0].playersWaitList == 'undefined') {
+		dataMatches[0].playersWaitList = []		
+	}
+
+	// Sort wait list players by joined Date
+	const sortedPlayersWaitList = dataMatches[0].playersWaitList.sort(
+		(objA, objB) => Number(objA.sortDate) - Number(objB.sortDate),
+		);
+
+	// Replace with sorted dict
+	dataMatches[0].playersWaitList = sortedPlayersWaitList
 	
 	// Check if player joined main list
 	if (dataMatches[0].players.length >= 1) {
@@ -118,6 +184,28 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 
 	} else {
 		joined = false;
+	}
+
+	// Check if player joined wait list only if not in main list
+	if (joined == false) {
+		if (dataMatches[0].playersWaitList.length >= 1) {
+			
+			for (let index = 0; index <= dataMatches[0].playersWaitList.length; index++){
+			
+				// Check with email
+				try {
+					if (dataMatches[0].playersWaitList[index].email == localsData.email) {
+						joinedWaitlist = true;						
+						break
+					}
+				} catch (error) {
+					joinedWaitlist = false;
+				}
+					
+			}
+		} else {
+			joinedWaitlist = false;
+		}
 	}
 		
 	return{
