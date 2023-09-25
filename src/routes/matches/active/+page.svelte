@@ -5,6 +5,18 @@
 
 	export let data;
 	$: ({matches} = data);
+
+	let x = 1;
+	let scoreboard;
+
+    function addToCounter() {
+		if (x === 5) {
+			scoreboard.click()
+		} else {
+			console.log(x);
+			x++;
+		}
+	}
 	
 </script>
 
@@ -15,9 +27,10 @@
 <div class="index">
 
 	<div style="position: -webkit-sticky; position: sticky; top: 0; background-color: white;">
-		<div class="title-container">
+		<div class="title-container" on:click={addToCounter}>
 			<i class="fa-solid fa-trophy" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 24px; font-weight: 600; line-height: 11px; padding-top: 4px;"></i>
 			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Partidos</p>
+			<a href="/tools/scoreboard" bind:this={scoreboard} hidden>a</a>
 		</div>
 
 		<div style="display: flex; justify-content: center; margin-bottom: 20px;">
