@@ -14,6 +14,7 @@
 			paymentSelection = true;
 		} else {
 			displayCheckboxPayment = true;
+			paymentSelection = false;
 		}
 	}
 	
