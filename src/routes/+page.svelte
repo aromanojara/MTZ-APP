@@ -192,6 +192,7 @@
 		font-size: 14px;
 		padding-left: 35px;
 		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.20);
+		-webkit-appearance: none;
 	}
 
 	.email:focus {
@@ -209,11 +210,13 @@
 		font-size: 14px;
 		padding-left: 35px;
 		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.20);
+		-webkit-appearance: none;
 	}
 
 	.password:focus {
 		outline-style: solid;
 		outline-color: #F1C40F;
+		border-radius: 6px;
 	}
 
 	.button_login {
@@ -225,6 +228,7 @@
 		height: 40px;
 		border-color: transparent;
 		font-weight: bold;
+		-webkit-appearance: none;
 	}
 
 	.button_login:disabled {

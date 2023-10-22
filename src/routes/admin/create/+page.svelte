@@ -5,11 +5,13 @@
 	let selected;
 	let displayCheckboxPayment = true;
 	let paymentCheckbox = false;
+	let paymentSelection = false;
 
-	function selection(params) {
+	function selection() {
 		if (selected === "payments") {
 			displayCheckboxPayment = false;
 			paymentCheckbox = false;
+			paymentSelection = true;
 		} else {
 			displayCheckboxPayment = true;
 		}
@@ -59,15 +61,34 @@
 						<input type="text" id="title" name="title" class="title" placeholder="Ej: Entrenamiento 1" required>
 					</div>
 
-					<div class="container">
-						<p style="margin-bottom: 6px">Fecha</p>
-						<input type="datetime-local" id="date" name="date" class="date" required>
-					</div>
+					{#if !paymentSelection}
+						<div class="container">
+							<p style="margin-bottom: 6px">Fecha</p>
+							<input type="datetime-local" id="date" name="date" class="date" required>
+						</div>
 
-					<div class="container">
-						<p style="margin-bottom: 6px">Límite de asistentes</p>
-						<input type="number" id="quota" name="quota" class="quota" placeholder="Ej: 18" required>
-					</div>
+						<div class="container">
+							<p style="margin-bottom: 6px">Límite de asistentes</p>
+							<input type="number" id="quota" name="quota" class="quota" placeholder="Ej: 18" required>
+						</div>
+
+					{:else if paymentSelection}
+						<div class="container">
+							<p style="margin-bottom: 6px">Fecha de pago</p>
+							<input type="datetime-local" id="paymentDate" name="paymentDate" class="date" required>
+						</div>
+
+						<div class="container">
+							<p style="margin-bottom: 6px">Personas a pagar</p>
+							<input type="number" id="quota" name="quota" class="quota" placeholder="Ej: 18" required>
+						</div>
+
+						<div class="container">
+							<p style="margin-bottom: 6px">Valor a pagar</p>
+							<input type="number" id="paymentAmount" name="paymentAmount" class="paymentAmount" placeholder="Ej: 7000" required>
+						</div>
+
+					{/if}
 
 					{#if displayCheckboxPayment}
 						<div class="checkbox-container">
@@ -77,7 +98,7 @@
 
 					{#if paymentCheckbox}
 						<div class="container">
-							<p style="margin-bottom: 6px">Fecha de Pago</p>
+							<p style="margin-bottom: 6px">Fecha de pago</p>
 							<input type="datetime-local" id="paymentDate" name="paymentDate" class="paymentDate" required>
 						</div>
 
@@ -169,6 +190,7 @@
 		font-weight: bold;
 		margin-top: 20px;
 		margin-bottom: 20px;
+		-webkit-appearance: none;
 	}
 
 	.type, .place, .title, .date, .quota, .paymentDate, .paymentAmount {
@@ -182,6 +204,7 @@
 		font-size: 14px;
 		padding-left: 10px;
 		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.20);
+		-webkit-appearance: none;
 	}
 
 	.type:focus, .place:focus, .title:focus, .date:focus, .quota:focus, .paymentDate:focus, .paymentAmount:focus {
@@ -192,6 +215,10 @@
 	
 	.checkbox-container {
 		margin-top: 20px;
+	}
+
+	input[type="checkbox"]{
+		
 	}
 
 </style>

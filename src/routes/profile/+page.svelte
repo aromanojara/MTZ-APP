@@ -127,6 +127,7 @@
 		font-size: 14px;
 		padding-left: 10px;
 		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.20);
+		-webkit-appearance: none;
 	}
 
 	.name:focus {
@@ -148,6 +149,7 @@
 		height: 40px;
 		border-color: transparent;
 		font-weight: bold;
+		-webkit-appearance: none;
 	}
 
 
