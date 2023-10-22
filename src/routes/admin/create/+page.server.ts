@@ -19,8 +19,8 @@ export const actions = {
 		const paymentAmount = parseInt(data.get('paymentAmount'));
 		
 		const amount = "$" + paymentAmount.toLocaleString('es-CL')
-		const filterDate = new Date(data.get('date'));
-		const filterPaymentDate = new Date(data.get('paymentDate'));
+		const filterDate = new Date(date);
+		const filterPaymentDate = new Date(paymentDate);
 
 		// Prevents creating a card in the past
 		if (date) {
