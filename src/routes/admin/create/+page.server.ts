@@ -12,10 +12,10 @@ export const actions = {
 		const cardType = data.get('createType');
 		const place = data.get('place');
 		const title = data.get('title');
-		const date = data.get('date');
+		const date = data.get('date') + ":00.000";
 		const quota = parseInt(data.get('quota'));
 		const paymentCheckbox = data.get('paymentCheckbox');
-		const paymentDate = data.get('paymentDate');
+		const paymentDate = data.get('paymentDate') + ":00.000";
 		const paymentAmount = parseInt(data.get('paymentAmount'));
 		
 		const amount = "$" + paymentAmount.toLocaleString('es-CL')
@@ -32,7 +32,12 @@ export const actions = {
 		}
 		
 		// Check form data
-		// console.log(data);		
+		console.log(data);		
+
+		console.log(date);
+		console.log(filterDate);
+		
+		
 
 		// Check if card has associated payment or not
 		if(paymentCheckbox){
