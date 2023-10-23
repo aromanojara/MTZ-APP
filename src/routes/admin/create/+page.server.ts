@@ -12,10 +12,10 @@ export const actions = {
 		const cardType = data.get('createType');
 		const place = data.get('place');
 		const title = data.get('title');
-		const date = data.get('date');
+		const date = data.get('date') + ":00.000";
 		const quota = parseInt(data.get('quota'));
 		const paymentCheckbox = data.get('paymentCheckbox');
-		const paymentDate = data.get('paymentDate');
+		const paymentDate = data.get('paymentDate') + ":00.000";
 		const paymentAmount = parseInt(data.get('paymentAmount'));
 		
 		const amount = "$" + paymentAmount.toLocaleString('es-CL')
@@ -32,7 +32,12 @@ export const actions = {
 		}
 		
 		// Check form data
-		// console.log(data);		
+		console.log(data);		
+
+		console.log(date);
+		console.log(filterDate);
+		
+		
 
 		// Check if card has associated payment or not
 		if(paymentCheckbox){
@@ -169,19 +174,19 @@ export const actions = {
 
 export const load: PageServerLoad = async function({cookies, locals, request}) {
 	
-	if (!locals.user) {
-		throw redirect(302, "/")
-	}
+	// if (!locals.user) {
+	// 	throw redirect(302, "/")
+	// }
 
-	const localsData = locals.user
+	// const localsData = locals.user
 	
-	let dataUsers = await users.find({ _id: localsData.email }).toArray();
+	// let dataUsers = await users.find({ _id: localsData.email }).toArray();
 
-	if (!dataUsers[0].admin) {
-		throw redirect(302, "/")
-	}
+	// if (!dataUsers[0].admin) {
+	// 	throw redirect(302, "/")
+	// }
 
-	return{
-			user: dataUsers,
-	}
+	// return{
+	// 		user: dataUsers,
+	// }
 }
