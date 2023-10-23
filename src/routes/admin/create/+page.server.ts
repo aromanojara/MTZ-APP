@@ -174,19 +174,19 @@ export const actions = {
 
 export const load: PageServerLoad = async function({cookies, locals, request}) {
 	
-	if (!locals.user) {
-		throw redirect(302, "/")
-	}
+	// if (!locals.user) {
+	// 	throw redirect(302, "/")
+	// }
 
-	const localsData = locals.user
+	// const localsData = locals.user
 	
-	let dataUsers = await users.find({ _id: localsData.email }).toArray();
+	// let dataUsers = await users.find({ _id: localsData.email }).toArray();
 
-	if (!dataUsers[0].admin) {
-		throw redirect(302, "/")
-	}
+	// if (!dataUsers[0].admin) {
+	// 	throw redirect(302, "/")
+	// }
 
-	return{
-			user: dataUsers,
-	}
+	// return{
+	// 		user: dataUsers,
+	// }
 }
