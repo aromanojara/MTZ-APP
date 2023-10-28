@@ -19,8 +19,12 @@ export const actions = {
 		let paymentAmount = parseInt(data.get('paymentAmount'));
 
 		let amount = "$" + paymentAmount.toLocaleString('es-CL');
-		let filterDate = new Date(date);
-		let filterPaymentDate = new Date(paymentDate);
+
+		let dateObj = new Date(date);
+		let paymentDateObj = new Date(paymentDate);
+
+		let filterDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset()));
+		let filterPaymentDate = new Date(paymentDateObj.setMinutes(paymentDateObj.getMinutes() + paymentDateObj.getTimezoneOffset()));
 
 		// Prevents creating a card in the past
 		if (date) {
@@ -30,35 +34,7 @@ export const actions = {
 				return
 			}
 		}
-		
-		// Check form data
-		console.log(data);
-		console.log("date:", date);
-		
-		let date2 = date + ":00"
-		let date3 = date + ":00Z"
-
-		let filterDate2 = new Date(date2);
-		let filterDate3 = new Date(date3);
-
-		console.log("filterDate:", filterDate);
-		console.log("toISOString:", filterDate.toISOString());
-		console.log("toUTCString:", filterDate.toUTCString());
-
-		console.log("-------");
-
-		console.log("date2:", date2);
-		console.log("filterDate2:", filterDate2);
-		console.log("toISOString2:", filterDate2.toISOString());
-		console.log("toUTCString2:", filterDate2.toUTCString());
-
-		console.log("-------");
-		
-		console.log("date3:", date3);
-		console.log("filterDate3:", filterDate3);
-		console.log("toISOString3:", filterDate3.toISOString());
-		console.log("toUTCString3:", filterDate3.toUTCString());
-				
+			
 
 		// Check if card has associated payment or not
 		if(paymentCheckbox){
