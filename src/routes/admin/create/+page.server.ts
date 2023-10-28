@@ -8,19 +8,19 @@ export const actions = {
     CreateCard: async (event, params) => {
 		// Log who created the card
 
-		const data = await event.request.formData();
-		const cardType = data.get('createType');
-		const place = data.get('place');
-		const title = data.get('title');
-		const date = data.get('date');
-		const quota = parseInt(data.get('quota'));
-		const paymentCheckbox = data.get('paymentCheckbox');
-		const paymentDate = data.get('paymentDate');
-		const paymentAmount = parseInt(data.get('paymentAmount'));
+		let data = await event.request.formData();
+		let cardType = data.get('createType');
+		let place = data.get('place');
+		let title = data.get('title');
+		let date = data.get('date');
+		let quota = parseInt(data.get('quota'));
+		let paymentCheckbox = data.get('paymentCheckbox');
+		let paymentDate = data.get('paymentDate');
+		let paymentAmount = parseInt(data.get('paymentAmount'));
 
-		const amount = "$" + paymentAmount.toLocaleString('es-CL')
-		const filterDate = new Date(new Date(date).toISOString())
-		const filterPaymentDate = new Date(new Date(paymentDate).toISOString())
+		let amount = "$" + paymentAmount.toLocaleString('es-CL');
+		let filterDate = new Date(date);
+		let filterPaymentDate = new Date(paymentDate);
 
 		// Prevents creating a card in the past
 		if (date) {
@@ -32,7 +32,33 @@ export const actions = {
 		}
 		
 		// Check form data
-		//console.log(data);		
+		console.log(data);
+		console.log("date:", date);
+		
+		let date2 = date + ":00"
+		let date3 = date + ":00Z"
+
+		let filterDate2 = new Date(date2);
+		let filterDate3 = new Date(date3);
+
+		console.log("filterDate:", filterDate);
+		console.log("toISOString:", filterDate.toISOString());
+		console.log("toUTCString:", filterDate.toUTCString());
+
+		console.log("-------");
+
+		console.log("date2:", date2);
+		console.log("filterDate2:", filterDate2);
+		console.log("toISOString2:", filterDate2.toISOString());
+		console.log("toUTCString2:", filterDate2.toUTCString());
+
+		console.log("-------");
+		
+		console.log("date3:", date3);
+		console.log("filterDate3:", filterDate3);
+		console.log("toISOString3:", filterDate3.toISOString());
+		console.log("toUTCString3:", filterDate3.toUTCString());
+				
 
 		// Check if card has associated payment or not
 		if(paymentCheckbox){
