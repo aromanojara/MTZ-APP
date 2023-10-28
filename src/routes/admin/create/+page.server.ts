@@ -20,11 +20,32 @@ export const actions = {
 
 		let amount = "$" + paymentAmount.toLocaleString('es-CL');
 
+		
+		console.log("date:", date);
+
 		let dateObj = new Date(date);
+		console.log("dateObj:", dateObj);
+
+		let date2 = date + ":00Z"
+		let dateObj2 = new Date(date2);
+		console.log("dateObj2:", dateObj2);
+
 		let paymentDateObj = new Date(paymentDate);
 
 		let filterDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset()));
 		let filterPaymentDate = new Date(paymentDateObj.setMinutes(paymentDateObj.getMinutes() + paymentDateObj.getTimezoneOffset()));
+
+		
+		
+		console.log("filterDate:", filterDate);
+		console.log("TimezoneOffset:", dateObj.getTimezoneOffset());
+		
+		console.log("TimezoneOffset2:", dateObj2.getTimezoneOffset());
+
+		let now = new Date("2023-11-02T20:00")
+
+		console.log(now);
+		console.log(new Date(now.setMinutes(now.getMinutes() + now.getTimezoneOffset())));
 
 		// Prevents creating a card in the past
 		if (date) {
