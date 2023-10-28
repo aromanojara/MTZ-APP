@@ -20,8 +20,12 @@ export const actions = {
 
 		let amount = "$" + paymentAmount.toLocaleString('es-CL');
 
-		let filterDate = new Date(new Date(date).toLocaleString("es-CL", {timeZone: 'America/Santiago'}));
-		let filterPaymentDate = new Date(new Date(paymentDate).toLocaleString("es-CL", {timeZone: 'America/Santiago'}));
+		let timeZoneOffset = new Date(new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})).getTimezoneOffset()
+		let dateObj = new Date(date);
+		let paymentDateObj = new Date(paymentDate);
+
+		let filterDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + timeZoneOffset))
+		let filterPaymentDate = new Date(paymentDateObj.setMinutes(paymentDateObj.getMinutes() + timeZoneOffset))
 
 		console.log(date);
 		console.log(filterDate);
