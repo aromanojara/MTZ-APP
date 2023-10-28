@@ -21,43 +21,17 @@ export const actions = {
 
 		let amount = "$" + paymentAmount.toLocaleString('es-CL');
 
-
-
-		// // Genero la fecha de hoy para revisar el timezone actual
-		// // Se debe utilizar toLocaleString para agregar timeZone
-		// let chileanDate = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
-		// // Para generar un date objetct con el timezone CL se debe tratar el string y dar vuelta el mes y el día, de lo contrario puede generar errores con los meses
-		// const [fechaParte, horaParte] = chileanDate.split(', ');
-		// const partesFecha = fechaParte.split('-');
-
-		// const dia = partesFecha[0];
-		// const mes = partesFecha[1];
-		// const año = partesFecha[2];
-		// chileanDate = `${mes}-${dia}-${año}, ${horaParte}`;
-
-		// // Se genera el objeto date formateado
-		// let chileanDateObj = new Date(chileanDate)
-
-		// // Input datetime-local string to date object
-		// let dateObj = new Date(date);
-		// let paymentDateObj = new Date(paymentDate);
-
-		// dateObject gets modified by adjusting the minutes and adding the chilean timezone offset
 		let filterDate = new Date(moment.tz(date, "America/Santiago").format());
-		let filterPaymentDate = new Date(moment.tz(paymentDate, "America/Santiago").format());
-		
-		console.log(filterDate);
-		
+		let filterPaymentDate = new Date(moment.tz(paymentDate, "America/Santiago").format());		
 
 		// Prevents creating a card in the past
 		if (date) {
 			
-			if (filterDate < new Date(new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'}))) {
+			if (filterDate < new Date(moment.tz(new Date(), "America/Santiago").format())) {
 				console.log("No puedes crear una tarjeta para el pasado");		
 				return
 			}
 		}
-			
 
 		// Check if card has associated payment or not
 		if(paymentCheckbox){
