@@ -20,16 +20,35 @@ export const actions = {
 
 		let amount = "$" + paymentAmount.toLocaleString('es-CL');
 
-		let timeZoneOffset = new Date(new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})).getTimezoneOffset()
+		// Genero la fecha de hoy para revisar el timezone actual
+		// Se debe utilizar toLocaleString para agregar timeZone
+		let chileanDate = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
+		// Para generar un date objetct con el timezone CL se debe tratar el string y dar vuelta el mes y el día, de lo contrario puede generar errores con los meses
+		const [fechaParte, horaParte] = chileanDate.split(', ');
+		const partesFecha = fechaParte.split('-');
+
+		const dia = partesFecha[0];
+		const mes = partesFecha[1];
+		const año = partesFecha[2];
+		chileanDate = `${mes}-${dia}-${año}, ${horaParte}`;
+
+		// Se genera el objeto date formateado
+		let chileanDateObj = new Date(chileanDate)
+
+		// Input datetime-local string to date object
 		let dateObj = new Date(date);
 		let paymentDateObj = new Date(paymentDate);
 
-		let filterDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + timeZoneOffset))
-		let filterPaymentDate = new Date(paymentDateObj.setMinutes(paymentDateObj.getMinutes() + timeZoneOffset))
+		// dateObject gets modified by adjusting the minutes and adding the chilean timezone offset
+		let filterDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + chileanDateObj.getTimezoneOffset()))
+		let filterPaymentDate = new Date(paymentDateObj.setMinutes(paymentDateObj.getMinutes() + chileanDateObj.getTimezoneOffset()))
 
-		console.log(date);
-		console.log(filterDate);
-		
+		console.log("date:", date);
+		console.log("chileanDate:", chileanDate);
+		console.log("chileanDateObj:", chileanDateObj);
+		console.log("chileanDateObj.getTimezoneOffset():", chileanDateObj.getTimezoneOffset());
+		console.log("filterDate:", filterDate);
+
 		// Prevents creating a card in the past
 		if (date) {
 			
