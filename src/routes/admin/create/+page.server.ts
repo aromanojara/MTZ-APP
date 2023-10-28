@@ -29,7 +29,7 @@ export const actions = {
 		// Prevents creating a card in the past
 		if (date) {
 			
-			if (filterDate < new Date()) {
+			if (filterDate < new Date(new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'}))) {
 				console.log("No puedes crear una tarjeta para el pasado");		
 				return
 			}
