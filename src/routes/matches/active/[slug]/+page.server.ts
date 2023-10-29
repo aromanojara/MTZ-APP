@@ -135,9 +135,7 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 	let dataUser = await users.find({ _id: localsData.email }).toArray();
 
 	let dataMatches = await matches.find({_id: new ObjectId(params.slug) }).toArray();
-	// Formatting Date and Hour
-	console.log(dataMatches);
-	
+	// Formatting Date and Hour	
 	
 	dataMatches[0].fecha = dataMatches[0].date.toLocaleString("es-CL", {timeZone: 'America/Santiago'}).split(',')[0].replaceAll("-", "/");
 	dataMatches[0].hora = dataMatches[0].date.toLocaleString("es-CL", {timeZone: 'America/Santiago'}).split(',')[1].slice(1, -3);	

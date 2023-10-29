@@ -15,6 +15,30 @@
 	let name = data.user[0].nombre + " " + data.user[0].apellido
 	let joined = data.joined;
 
+	let _id = data.payments[0]._id
+	let x = 1;
+	let copied = false;
+	let adminPanel;
+
+    async function addToCounter() {
+		if (x === 5 && data.user[0].admin) {
+
+			try {
+                await navigator.clipboard.writeText(_id);
+                copied = true;
+				adminPanel.click()
+            } catch (error) {
+                console.error("Failed to copy to clipboard:", error);
+            }
+
+		} else if (x === 5 && !data.user[0].admin) {
+			x = 1
+		} else {
+			console.log(x);
+			x++;
+		}
+	}
+
 </script>
 
 <head>
@@ -36,10 +60,14 @@
 			<p style="font-size: 32px; font-weight: 600; line-height: 39px;">Detalle</p>
 		</div>
 		
-		<div style="display: flex; justify-content: center; padding-bottom: 15px;">
+		{#if copied}
+			<p class="success">¡Se copió el Id en el Portapapeles!</p>
+		{/if}
+
+		<div style="display: flex; justify-content: center; padding-bottom: 15px;" on:click={addToCounter}>
 			<MainCard href="" place={payments[0].place} title={payments[0].title} time={payments[0].amount} quotaLeft={payments[0].quotaLeft} date={payments[0].fecha} leftIcon={"fa-solid fa-money-bill-wave"} centerIconText={"Pendientes"}/>
 		</div>
-
+		<a href="/admin" bind:this={adminPanel} hidden>a</a>
 		<!-- wrapper fixes scroll hiding players card with footer -->
 		<div id="wrapper" style="margin-bottom: 108px">
 
@@ -94,6 +122,13 @@
 		text-decoration: none;
 	}
 
+	.success {
+		display: flex;
+		justify-content: center;
+		margin-top: 0px;
+		font-weight: 600;
+	}
+	
 </style>
 
 	

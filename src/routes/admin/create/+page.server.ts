@@ -36,7 +36,7 @@ export const actions = {
 		// Check if card has associated payment or not
 		if(paymentCheckbox){
 
-			db.collection("payments").insertOne({
+			await db.collection("payments").insertOne({
 				place: place, // Lugar
 				title: title, // Título
 				date: filterPaymentDate, // Fecha
@@ -65,6 +65,8 @@ export const actions = {
 							playersWaitList: [], // Lista de PDs
 							paymentId: paymentId
 						})
+
+						throw redirect (303, '/clases/active/');
 		
 					} else if (cardType === "matches") {
 		
@@ -79,6 +81,8 @@ export const actions = {
 							players: [], // Lista de jugadores con plan
 							paymentId: paymentId
 						})
+
+						throw redirect (303, '/matches/active/');
 		
 					} else if (cardType === "events") {
 		
@@ -93,6 +97,8 @@ export const actions = {
 							players: [], // Lista de jugadores con plan
 							paymentId: paymentId
 						})
+
+						throw redirect (303, '/events/active/');
 					}
 
 				  })
@@ -106,7 +112,7 @@ export const actions = {
 
 			if(cardType === "trainings"){
 
-				db.collection(cardType).insertOne({
+				await db.collection(cardType).insertOne({
 					place: place, // Lugar
 					title: title, // Título
 					date: filterDate, // Fecha
@@ -118,9 +124,11 @@ export const actions = {
 					playersWaitList: [] // Lista de PDs
 				})
 
+				throw redirect (303, '/clases/active/');
+
 			} else if (cardType === "matches") {
 
-				db.collection(cardType).insertOne({
+				await db.collection(cardType).insertOne({
 					place: place, // Lugar
 					title: title, // Título
 					date: filterDate, // Fecha
@@ -130,10 +138,12 @@ export const actions = {
 					attendance: 0, // Asistentes
 					players: [], // Lista de jugadores con plan
 				})
+
+				throw redirect (303, '/matches/active/');
 
 			} else if (cardType === "events") {
 
-				db.collection(cardType).insertOne({
+				await db.collection(cardType).insertOne({
 					place: place, // Lugar
 					title: title, // Título
 					date: filterDate, // Fecha
@@ -143,6 +153,8 @@ export const actions = {
 					attendance: 0, // Asistentes
 					players: [], // Lista de jugadores con plan
 				})
+
+				throw redirect (303, '/events/active/');
 				
 			} else if (cardType === "payments") {
 
@@ -158,6 +170,8 @@ export const actions = {
 					amount: amount,
 					ready: false
 				})
+
+				throw redirect (303, '/payments/active/');
 				
 			}
 			

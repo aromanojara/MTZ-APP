@@ -29,11 +29,11 @@
 
 			<!-- <div class="module-container">
 				<a href="/admin/edit" class="clases-container">Editar Tarjeta</a>
-			</div>
+			</div> -->
 
 			<div class="module-container">
 				<a href="/admin/delete" class="clases-container">Borrar Tarjeta</a>
-			</div> -->
+			</div>
 
 		</div>
 
