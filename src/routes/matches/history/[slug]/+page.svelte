@@ -70,7 +70,7 @@
 		<!-- wrapper fixes scroll hiding players card with footer -->
 		<div id="wrapper" style="margin-bottom: 108px">
 			<PlayersList title="Jugadores Inscritos" attendance={attendance} quota={matches[0].quota} players={players} localsData={localsData} />
-			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} title={"Barra Oficial"}/>
+			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} title={"Mestibarra"}/>
 		</div>
 	</div>
 
