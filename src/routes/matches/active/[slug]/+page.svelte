@@ -94,7 +94,7 @@
 			<!-- Botones -->
 
 			<!-- Lista de espera -->
-			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} title={"Barra Oficial"}/>
+			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} title={"Mestibarra"}/>
 			<!-- Lista de espera -->
 
 			{#if !joined && attendance < matches[0].quota}

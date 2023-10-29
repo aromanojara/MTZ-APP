@@ -4,16 +4,14 @@
 	import { onMount } from 'svelte';
 
 	let id = ""
-	let test = ""
 	
 	async function pasteFromClipboard() {
 		
 		try {
 			const text = await navigator.clipboard.readText();
-			console.log(text);
 			id = text;
 		} catch (error) {
-			test = error
+			console.log(error);
 		}
 
     }
@@ -80,7 +78,6 @@
 
 				</div>
 			</form>
-			<textarea name="" id="" bind:value={test} cols="30" rows="10"></textarea>
 		</div>
 
 	</div>
