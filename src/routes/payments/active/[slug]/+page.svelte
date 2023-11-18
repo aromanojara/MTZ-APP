@@ -79,12 +79,12 @@
 		<div style="display: flex; justify-content: center; padding-bottom: 15px; user-select: text;">
 			<!-- Make prettier? -->
 			<div class="payment-info">
-				<div>Angelo Romano</div>
-				<div>19.624.481-6</div>
+				<div>ALEJANDRA ANTONIA BRINO VARGAS</div>
+				<div>19.687.721-5</div>
 				<div>Bci / Banco Crédito e Inversiones</div>
-				<div>Cuenta Vista</div>
-				<div>777019624481</div>
-				<div>Mestizxsvolei@gmail.com</div>
+				<div>Cuenta Corriente</div>
+				<div>777919687721</div>
+				<div>mestizxsvolei@gmail.com</div>
 			</div>
 		</div>
 
