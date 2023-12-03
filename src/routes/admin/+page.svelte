@@ -35,6 +35,10 @@
 				<a href="/admin/delete" class="clases-container">Borrar Tarjeta</a>
 			</div>
 
+			<div class="module-container">
+				<a href="/admin/close-payment" class="clases-container">Cerrar Pago</a>
+			</div>
+
 		</div>
 
 	</div>
