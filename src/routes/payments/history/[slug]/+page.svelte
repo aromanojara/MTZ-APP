@@ -10,7 +10,8 @@
 
 	let localsData = data.localsData;	
 
-	let players = data.payments[0].players
+	let picture = data.user[0].foto
+	let paidPlayers = data.payments[0].paidPlayers
 	let paid = parseInt(data.payments[0].paid);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
 	let joined = data.joined;
@@ -72,11 +73,11 @@
 		<div id="wrapper" style="margin-bottom: 108px">
 
 			<!-- Inscritos planes -->
-			<PlayersList title="Pagos Realizados" attendance={paid} quota={payments[0].quota} players={players} localsData={localsData} />
+			<PlayersList title="Pagos Realizados" attendance={paid} quota={payments[0].quota} players={paidPlayers} localsData={localsData} />
 			<!-- Inscritos planes -->
 
 			{#if joined}
-				<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} text={"Me equivoqué, aún no pago"}/>
+				<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} picture={picture} text={"Me equivoqué, aún no pago"}/>
 			{/if}
 
 		</div>

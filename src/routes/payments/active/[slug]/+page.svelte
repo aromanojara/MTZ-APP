@@ -5,6 +5,8 @@
     import JoinButton from "../../../../components/JoinButton.svelte";
 	import LeaveButton from "../../../../components/LeaveButton.svelte";
     import Navbar from "../../../../components/Navbar.svelte";
+	import PaidPlayersList from "../../../../components/PaidPlayersList.svelte";
+	import DicomPlayersList from "../../../../components/DicomPlayersList.svelte";
 
 	export let data;
 	$: ({payments} = data);	
@@ -16,11 +18,14 @@
 	let paid = parseInt(data.payments[0].paid);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
 	let joined = data.joined;
+	let joinedDicom = data.joinedDicom;
 
 	let _id = data.payments[0]._id
 	let x = 1;
 	let copied = false;
 	let adminPanel;
+
+	let paidPlayers = data.payments[0].paidPlayers
 
     async function addToCounter() {
 		if (x === 5 && data.user[0].admin) {
@@ -91,21 +96,26 @@
 		<!-- wrapper fixes scroll hiding players card with footer -->
 		<div id="wrapper" style="margin-bottom: 108px">
 
+			<!-- Mestidicom -->
+			<DicomPlayersList title="Mestidicom" paymentsLeft={payments[0].quotaLeft} quota={payments[0].quota} players={players} localsData={localsData} />
 			<!-- Inscritos planes -->
-			<PlayersList title="Pagos Realizados" attendance={paid} quota={payments[0].quota} players={players} localsData={localsData} />
-			<!-- Inscritos planes -->
+
 
 			<!-- Botones planes -->
-			{#if paid < payments[0].quota}
-				{#if !joined && paid < payments[0].quota}
-					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} text={"Pagué"}/>
-				{/if}
 
-				{#if joined}
-					<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} text={"Me equivoqué, aún no pago"}/>
-				{/if}
+			{#if joined && joinedDicom}
+				<JoinButton action="?/Paid" name={name} email={localsData.email} picture={picture} text={"Pagué"}/>
 			{/if}
+			
 			<!-- Botones planes -->
+
+			<PaidPlayersList title="Pagaron" paid={paid} quota={payments[0].quota} players={paidPlayers} localsData={localsData} />
+			
+			<!-- TODO if !joined && not in match -->
+			{#if joined && !joinedDicom} 
+				<LeaveButton action="?/NotPaid" name={name} email={localsData.email} picture={picture} text={"Me equivoqué, aún no pago"}/>
+			{/if}
+
 		</div>
 	</div>
 

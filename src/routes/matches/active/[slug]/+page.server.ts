@@ -1,5 +1,6 @@
 import { users } from '../../../../db/users';
 import { matches } from '../../../../db/matches';
+import { payments } from '../../../../db/payments.js';
 import type { PageServerLoad } from './$types';
 import { ObjectId } from 'mongodb';
 import { redirect } from "@sveltejs/kit";
@@ -16,8 +17,6 @@ export const actions = {
 
 		let dataMatches = await matches.find({_id: new ObjectId(event.params.slug) }).toArray();
 
-
-
 		const quotaLeft = parseInt(dataMatches[0].quotaLeft) - 1;
 		const attendance = parseInt(dataMatches[0].attendance) + 1;	
 		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
@@ -25,7 +24,9 @@ export const actions = {
 		const formattedDia = dia.replace("-", "/");
 		const hora = date.substring(12, 17);
 		const fullDate = formattedDia + " " + hora
-		
+
+		const paymentId = dataMatches[0].paymentId;
+
 		await matches.updateOne(
 			{ _id: new ObjectId(event.params.slug) },
 			{
@@ -37,8 +38,25 @@ export const actions = {
 						players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
 			}
-		);	
-		
+		);
+
+		if (paymentId){
+
+			await payments.updateOne(
+				{ _id: new ObjectId(paymentId) },
+				{
+					$inc:{
+							quota: 1,
+							quotaLeft: 1,
+					},
+					$push: { 
+							players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+					},
+				}
+			);	
+
+		}
+
 		throw redirect (303, '/matches/active/'+event.params.slug+'');
 		
     },
@@ -48,11 +66,20 @@ export const actions = {
 		const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		let dataMatches = await matches.find({_id: new ObjectId(event.params.slug) }).toArray();
 
 		const quotaLeft = parseInt(dataMatches[0].quotaLeft) + 1;
-		const attendance = parseInt(dataMatches[0].attendance) - 1;	
+		const attendance = parseInt(dataMatches[0].attendance) - 1;
+
+		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
+		const dia = date.substring(0, 5);
+		const formattedDia = dia.replace("-", "/");
+		const hora = date.substring(12, 17);
+		const fullDate = formattedDia + " " + hora
+
+		const paymentId = dataMatches[0].paymentId;
 
 		await matches.updateOne(
 			{ _id: new ObjectId(event.params.slug) },
@@ -64,6 +91,51 @@ export const actions = {
 				}
 			}
 		);	
+		
+		// TODO:
+		// Check if -1 quota left makes ready = true
+		if (paymentId){
+
+			let inPlayerList = true
+			let dataPayments = await payments.find({_id: new ObjectId(paymentId)}).toArray();
+			
+			if (dataPayments[0].paidPlayers.length >= 1) {
+				for (let index = 0; index < dataPayments[0].paidPlayers.length; index++) {
+					if (dataPayments[0].paidPlayers[index].email == email) {
+						inPlayerList = false
+					}
+				}
+			}
+			
+			if (inPlayerList) {
+				
+				await payments.updateOne(
+					{ _id: new ObjectId(paymentId) },
+					{
+						$inc:{
+								quota: -1,
+								quotaLeft: -1,
+						},
+						$pull: { 'players': { email: email } }
+					}
+				);	
+
+			} else {
+				
+				await payments.updateOne(
+					{ _id: new ObjectId(paymentId) },
+					{
+						$inc:{
+								quota: -1,
+								paid: -1,
+						},
+						$pull: { 'paidPlayers': { email: email } }
+					}
+				);
+
+			}	
+
+		}
 		
 		throw redirect (303, '/matches/active/'+event.params.slug+'');
 		

@@ -12,21 +12,31 @@ export const actions = {
 		const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		let dataPayments = await payments.find({_id: new ObjectId(event.params.slug) }).toArray();
 
 		const quotaLeft = parseInt(dataPayments[0].quotaLeft) + 1;
 		const paid = parseInt(dataPayments[0].paid) - 1;	
 
+		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
+		const dia = date.substring(0, 5);
+		const formattedDia = dia.replace("-", "/");
+		const hora = date.substring(12, 17);
+		const fullDate = formattedDia + " " + hora
+
 		await payments.updateOne(
 			{ _id: new ObjectId(event.params.slug) },
 			{ 
-				$pull: { 'players': { email: email } },
+				$pull: { 'paidPlayers': { email: email } },
 				$set:{
 					quotaLeft: quotaLeft,
 					paid: paid,
 					ready: false
-				}
+				},
+				$push: { 
+					players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+				},
 			}
 		);	
 		
@@ -57,20 +67,20 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 	dataPayments[0]._id = dataPayments[0]._id.toString()
 	
 	// Sort players by joined Date
-	const sortedPlayers = dataPayments[0].players.sort(
+	const sortedPlayers = dataPayments[0].paidPlayers.sort(
 		(objA, objB) => Number(objA.sortDate) - Number(objB.sortDate),
 	  );
 
 	// Replace with sorted dict
-	dataPayments[0].players = sortedPlayers
+	dataPayments[0].paidPlayers = sortedPlayers
 	
 	// Check if player joined main list
-	if (dataPayments[0].players.length >= 1) {
-		for (let index = 0; index <= dataPayments[0].players.length; index++){
+	if (dataPayments[0].paidPlayers.length >= 1) {
+		for (let index = 0; index <= dataPayments[0].paidPlayers.length; index++){
 		
 			// Check with email
 			try {
-				if (dataPayments[0].players[index].email == localsData.email) {
+				if (dataPayments[0].paidPlayers[index].email == localsData.email) {
 					joined = true;
 					break
 				}

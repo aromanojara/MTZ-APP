@@ -8,7 +8,7 @@ import { payments } from '../../../../db/payments';
 
 export const actions = {
 
-    JoinClass: async (event, params) => {
+    Paid: async (event, params) => {
 		
         const data = await event.request.formData();
 		const name = data.get('name');
@@ -27,7 +27,12 @@ export const actions = {
 		const hora = date.substring(12, 17);
 		const fullDate = formattedDia + " " + hora
 		
-		if (quota == paid) {
+		const eventDate = dataPayments[0].eventDate
+		console.log(eventDate);
+		
+		// set ready:ready 
+
+		if (quota == paid && eventDate < new Date()) {
 			const ready = true;
 			await payments.updateOne(
 				{ _id: new ObjectId(event.params.slug) },
@@ -38,8 +43,10 @@ export const actions = {
 							ready: ready
 					},
 					$push: { 
-							players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
-						},
+							paidPlayers: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+					},
+					$pull: { 'players': { email: email }
+					},
 				}
 			);	
 			
@@ -55,8 +62,10 @@ export const actions = {
 							paid: paid
 					},
 					$push: { 
-							players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
-						},
+						paidPlayers: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+					},
+					$pull: { 'players': { email: email }
+					},
 				}
 			);	
 			
@@ -64,27 +73,38 @@ export const actions = {
 		}
     },
 
-	LeaveClass: async (event, params) => {
+	NotPaid: async (event, params) => {
 		
 		const data = await event.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const picture = data.get('picture');
 
 		let dataPayments = await payments.find({_id: new ObjectId(event.params.slug) }).toArray();
 
 		const quotaLeft = parseInt(dataPayments[0].quotaLeft) + 1;
-		const paid = parseInt(dataPayments[0].paid) - 1;	
+		const paid = parseInt(dataPayments[0].paid) - 1;
+
+		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
+		const dia = date.substring(0, 5);
+		const formattedDia = dia.replace("-", "/");
+		const hora = date.substring(12, 17);
+		const fullDate = formattedDia + " " + hora
 
 		await payments.updateOne(
 			{ _id: new ObjectId(event.params.slug) },
 			{ 
-				$pull: { 'players': { email: email } },
+				$pull: { 'paidPlayers': { email: email } 
+				},
 				$set:{
 					quotaLeft: quotaLeft,
 					paid: paid	
-				}
+				},
+				$push: { 
+					players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+				},
 			}
-		);	
+		);
 		
 		throw redirect (303, '/payments/active/'+event.params.slug+'');
 		
@@ -101,7 +121,7 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 
 	const localsData = locals.user
 	let joined = false;
-	let joinedWaitlist = false;
+	let joinedDicom = false;
 	let dataUser = await users.find({ _id: localsData.email }).toArray();
 
 	let dataPayments = await payments.find({_id: new ObjectId(params.slug) }).toArray();
@@ -121,32 +141,60 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 
 	// Replace with sorted dict
 	dataPayments[0].players = sortedPlayers
+
+
+	if (dataPayments[0].paidPlayers) {
+		// Sort paidPlayers by joined Date
+		const sortedPaidPlayers = dataPayments[0].paidPlayers.sort(
+			(objA, objB) => Number(objA.sortDate) - Number(objB.sortDate),
+		);
+
+		// Replace with sorted dict
+		dataPayments[0].paidPlayers = sortedPaidPlayers
+	}
+
 	
 	// Check if player joined main list
 	if (dataPayments[0].players.length >= 1) {
 		for (let index = 0; index <= dataPayments[0].players.length; index++){
-		
 			// Check with email
 			try {
 				if (dataPayments[0].players[index].email == localsData.email) {
 					joined = true;
+					joinedDicom = true;
 					break
 				}
 			} catch (error) {
 				joined = false;
-			}
-				
+			}	
 		} 
-
+	} else if (dataPayments[0].paidPlayers.length >= 1) {
+		for (let index = 0; index <= dataPayments[0].paidPlayers.length; index++){
+			// Check with email
+			try {
+				if (dataPayments[0].paidPlayers[index].email == localsData.email) {
+					joined = true;
+					joinedDicom = false;
+					break
+				}
+			} catch (error) {
+				joined = false;
+			}	
+		} 
 	} else {
 		joined = false;
+		joinedDicom = false;
 	}
+		
+
+	
 		
 	return{
 			user: dataUser,
 			payments: dataPayments,
 			joined: joined,
-			localsData: localsData
+			localsData: localsData,
+			joinedDicom: joinedDicom
 	}
 }
 

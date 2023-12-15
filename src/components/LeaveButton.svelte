@@ -2,6 +2,7 @@
 	export let action
 	export let name
 	export let email
+	export let picture = ""
 	export let text
 	
 	let disabled = false
@@ -16,6 +17,7 @@
 	<form method="post" action="{action}">
 		<input type="text" name="name" bind:value={name} hidden>
 		<input type="text" name="email" bind:value={email} hidden>
+		<input type="text" name="picture" bind:value={picture} hidden>
 		<button class="button-dropout" on:click|once={handleClick} hidden={disabled}>
 			{text}
 		</button>
@@ -28,6 +30,7 @@
 		width: 90%;
 		background-color: transparent;
 		margin: auto;
+		padding-bottom: 15px;
 	}
 
 	.button-dropout {
