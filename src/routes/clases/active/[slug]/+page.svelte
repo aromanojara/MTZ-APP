@@ -81,7 +81,7 @@
 			<!-- Inscritos planes -->
 
 			<!-- Botones planes -->
-			{#if !joinedWaitlist && attendance < trainings[0].quota}
+			{#if !joinedWaitlist && attendance <= trainings[0].quota}
 				{#if !joined && attendance < trainings[0].quota}
 					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} text={"Inscribirse"} />
 				{/if}
