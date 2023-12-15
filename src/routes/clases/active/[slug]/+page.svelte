@@ -95,8 +95,8 @@
 			<WaitListPlayersList playersWaitList={playersWaitList} localsData={localsData} />
 			<!-- Lista de espera -->
 
-			{#if !joined && attendance < trainings[0].quota}
-				{#if !joinedWaitlist && attendance < trainings[0].quota}
+			{#if !joined}
+				{#if !joinedWaitlist}
 					<JoinButton action="?/JoinClassWaitList" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
 				{/if}
 				{#if joinedWaitlist}					
