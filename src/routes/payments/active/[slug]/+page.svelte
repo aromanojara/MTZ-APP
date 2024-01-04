@@ -13,7 +13,7 @@
 
 	let localsData = data.localsData;
 	
-	let players = data.payments[0].players
+	let mestiDicom = data.payments[0].mestiDicom
 	let picture = data.user[0].foto
 	let paid = parseInt(data.payments[0].paid);
 	let name = data.user[0].nombre + " " + data.user[0].apellido
@@ -97,7 +97,7 @@
 		<div id="wrapper" style="margin-bottom: 108px">
 
 			<!-- Mestidicom -->
-			<DicomPlayersList title="Mestidicom" paymentsLeft={payments[0].quotaLeft} quota={payments[0].quota} players={players} localsData={localsData} />
+			<DicomPlayersList title="Mestidicom" paymentsLeft={payments[0].quotaLeft} quota={payments[0].quota} players={mestiDicom} localsData={localsData} />
 			<!-- Inscritos planes -->
 
 
@@ -111,7 +111,6 @@
 
 			<PaidPlayersList title="Pagaron" paid={paid} quota={payments[0].quota} players={paidPlayers} localsData={localsData} />
 			
-			<!-- TODO if !joined && not in match -->
 			{#if joined && !joinedDicom} 
 				<LeaveButton action="?/NotPaid" name={name} email={localsData.email} picture={picture} text={"Me equivoqué, aún no pago"}/>
 			{/if}

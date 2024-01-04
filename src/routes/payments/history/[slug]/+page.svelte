@@ -4,6 +4,8 @@
     import PlayersList from '../../../../components/PlayersList.svelte';
 	import LeaveButton from "../../../../components/LeaveButton.svelte";
     import Navbar from "../../../../components/Navbar.svelte";
+	import DicomPlayersList from "../../../../components/DicomPlayersList.svelte";
+	import PaidPlayersList from "../../../../components/PaidPlayersList.svelte";
 
 	export let data;
 	$: ({payments} = data);	
@@ -21,6 +23,11 @@
 	let copied = false;
 	let adminPanel;
 
+	let disableUndoPaymentFlag = data.disableUndoPaymentFlag
+	let mestiDicomExistsFlag = data.mestiDicomExistsFlag
+
+	let mestiDicom = data.payments[0].mestiDicom
+	
     async function addToCounter() {
 		if (x === 5 && data.user[0].admin) {
 
@@ -69,14 +76,35 @@
 			<MainCard href="" place={payments[0].place} title={payments[0].title} time={payments[0].amount} quotaLeft={payments[0].quotaLeft} date={payments[0].fecha} leftIcon={"fa-solid fa-money-bill-wave"} centerIconText={"Pendientes"}/>
 		</div>
 		<a href="/admin" bind:this={adminPanel} hidden>a</a>
+
+		<div class="title-container">
+			<i class="fa-solid fa-circle-info" style="display: flex; flex-direction: column; justify-content: center; padding-right: 13px; padding-left: 22px; font-size: 21px; font-weight: 600; line-height: 11px; margin-top: -14px"></i>
+			<p style="font-size: 26px; font-weight: 600; line-height: 26px; margin-top: 10px;">Datos de transferencia</p>
+		</div>
+
+		<div style="display: flex; justify-content: center; padding-bottom: 15px; user-select: text;">
+			<!-- Make prettier? -->
+			<div class="payment-info">
+				<div>ALEJANDRA ANTONIA BRINO VARGAS</div>
+				<div>19.687.721-5</div>
+				<div>Bci / Banco Crédito e Inversiones</div>
+				<div>Cuenta Corriente</div>
+				<div>777919687721</div>
+				<div>mestizxsvolei@gmail.com</div>
+			</div>
+		</div>
+
 		<!-- wrapper fixes scroll hiding players card with footer -->
 		<div id="wrapper" style="margin-bottom: 108px">
 
-			<!-- Inscritos planes -->
-			<PlayersList title="Pagos Realizados" attendance={paid} quota={payments[0].quota} players={paidPlayers} localsData={localsData} />
-			<!-- Inscritos planes -->
+			<!-- Mestidicom -->
+			{#if mestiDicomExistsFlag}
+				<DicomPlayersList title="Mestidicom" paymentsLeft={payments[0].quotaLeft} quota={payments[0].quota} players={mestiDicom} localsData={localsData} />
+			{/if}
 
-			{#if joined}
+			<PaidPlayersList title="Pagaron" paid={paid} quota={payments[0].quota} players={paidPlayers} localsData={localsData} />
+
+			{#if joined && !disableUndoPaymentFlag}
 				<LeaveButton action="?/LeaveClass" name={name} email={localsData.email} picture={picture} text={"Me equivoqué, aún no pago"}/>
 			{/if}
 
@@ -88,6 +116,18 @@
 </div>
 
 <style>
+
+.payment-info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height:10rem;
+		background-color: #FFFFFF;
+		border-radius: 6px;
+		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+		width: 90%;
+		flex-direction: column;
+	}
 
 	.index {
     	display: flex;

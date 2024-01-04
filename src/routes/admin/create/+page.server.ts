@@ -41,9 +41,9 @@ export const actions = {
 				title: title, // Título
 				date: filterPaymentDate, // Fecha
 				dateYM: paymentDate.slice(0,7), // Fecha para filtrar historial
-				eventDate: date,
-				quota: quota, // Límite de personas
-				quotaLeft: quota, // Cupos restantes
+				eventDate: filterDate,
+				quota: 0, // Límite de personas
+				quotaLeft: 0, // Cupos restantes
 				paid: 0,
 				players: [], // Lista de jugadores con plan
 				paidPlayers: [],

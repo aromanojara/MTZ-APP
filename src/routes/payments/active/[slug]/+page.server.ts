@@ -17,43 +17,34 @@ export const actions = {
 
 		let dataPayments = await payments.find({_id: new ObjectId(event.params.slug) }).toArray();
 
-		const quota = parseInt(dataPayments[0].quota);
 		const quotaLeft = parseInt(dataPayments[0].quotaLeft) - 1;
 		const paid = parseInt(dataPayments[0].paid) + 1;
+		const quota = parseInt(dataPayments[0].quota);
 		
 		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
 		const dia = date.substring(0, 5);
 		const formattedDia = dia.replace("-", "/");
 		const hora = date.substring(12, 17);
 		const fullDate = formattedDia + " " + hora
-		
-		const eventDate = dataPayments[0].eventDate
-		console.log(eventDate);
-		
-		// set ready:ready 
-
-		if (quota == paid && eventDate < new Date()) {
-			const ready = true;
+					
+		// payment ready, set ready true
+		if (paid == quota) {
 			await payments.updateOne(
 				{ _id: new ObjectId(event.params.slug) },
 				{
 					$set:{
 							quotaLeft: quotaLeft,
 							paid: paid,
-							ready: ready
+							ready: true
 					},
 					$push: { 
-							paidPlayers: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+						paidPlayers: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
-					$pull: { 'players': { email: email }
+					$pull: { 'mestiDicom': { email: email }
 					},
 				}
 			);	
-			
-			throw redirect (303, '/payments/history/'+event.params.slug+'');
-
 		} else {
-			
 			await payments.updateOne(
 				{ _id: new ObjectId(event.params.slug) },
 				{
@@ -64,13 +55,14 @@ export const actions = {
 					$push: { 
 						paidPlayers: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
-					$pull: { 'players': { email: email }
+					$pull: { 'mestiDicom': { email: email }
 					},
 				}
 			);	
-			
-			throw redirect (303, '/payments/active/'+event.params.slug+'');
-		}
+		}		
+		
+		throw redirect (303, '/payments/history/'+event.params.slug+'');
+		
     },
 
 	NotPaid: async (event, params) => {
@@ -98,10 +90,11 @@ export const actions = {
 				},
 				$set:{
 					quotaLeft: quotaLeft,
-					paid: paid	
+					paid: paid,
+					ready: false	
 				},
 				$push: { 
-					players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+					mestiDicom: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 				},
 			}
 		);
@@ -134,13 +127,13 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 	dataPayments[0]._id = dataPayments[0]._id.toString()
 	
 
-	// Sort players by joined Date
-	const sortedPlayers = dataPayments[0].players.sort(
+	// Sort mestiDicom by joined Date
+	const sortedPlayers = dataPayments[0].mestiDicom.sort(
 		(objA, objB) => Number(objA.sortDate) - Number(objB.sortDate),
 	  );
 
 	// Replace with sorted dict
-	dataPayments[0].players = sortedPlayers
+	dataPayments[0].mestiDicom = sortedPlayers
 
 
 	if (dataPayments[0].paidPlayers) {
@@ -152,25 +145,26 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 		// Replace with sorted dict
 		dataPayments[0].paidPlayers = sortedPaidPlayers
 	}
-
 	
 	// Check if player joined main list
-	if (dataPayments[0].players.length >= 1) {
-		for (let index = 0; index <= dataPayments[0].players.length; index++){
+	if (dataPayments[0].mestiDicom.length >= 1) {		
+		for (let index = 0; index <= dataPayments[0].mestiDicom.length; index++){
 			// Check with email
 			try {
-				if (dataPayments[0].players[index].email == localsData.email) {
+				if (dataPayments[0].mestiDicom[index].email == localsData.email) {
 					joined = true;
 					joinedDicom = true;
 					break
 				}
 			} catch (error) {
-				joined = false;
+				joinedDicom = false;		
 			}	
 		} 
-	} else if (dataPayments[0].paidPlayers.length >= 1) {
+	}
+
+	if (dataPayments[0].paidPlayers.length >= 1 && joinedDicom == false) {		
 		for (let index = 0; index <= dataPayments[0].paidPlayers.length; index++){
-			// Check with email
+			// Check with email			
 			try {
 				if (dataPayments[0].paidPlayers[index].email == localsData.email) {
 					joined = true;
@@ -181,13 +175,7 @@ export const load: PageServerLoad = async function({ params, cookies, locals }) 
 				joined = false;
 			}	
 		} 
-	} else {
-		joined = false;
-		joinedDicom = false;
-	}
-		
-
-	
+	}	
 		
 	return{
 			user: dataUser,

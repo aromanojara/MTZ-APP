@@ -1,4 +1,5 @@
 import { payments } from '../../../db/payments';
+import { users } from '../../../db/users';
 import type { PageServerLoad } from './$types';
 import { redirect } from "@sveltejs/kit";
 import { error } from "@sveltejs/kit";
@@ -9,9 +10,21 @@ export const actions = {
 		
         const data = await event.request.formData();		
 		const filterDate = data.get('filterDate');
+		const isAdmin = Boolean(data.get('isAdmin'));
+		const email = data.get('email');
+		let dataPayments
 
-		let dataPayments = await payments.find({dateYM: filterDate, ready: true}).sort({date: -1}).toArray();
-		
+		console.log(isAdmin);
+		// admin no checkin correctly, chrome multiclient bug? 
+		if (isAdmin) {			
+			console.log("here1");
+			dataPayments = await payments.find({dateYM: filterDate, ready: true}).sort({date: -1}).toArray();
+		} else {
+			console.log("here");
+			
+			dataPayments = await payments.find({dateYM: filterDate, "paidPlayers.email": { $eq: email, $exists: true }}).sort({date: -1}).toArray();
+		}
+				
 		// Formatting Date and Hour
 		for (let index = 0; index < dataPayments.length; index++) {
 			dataPayments[index].fecha = dataPayments[index].date.toLocaleString("es-CL", {timeZone: 'America/Santiago'}).split(',')[0].replaceAll("-", "/");
@@ -21,9 +34,11 @@ export const actions = {
 			dataPayments[index]._id = dataPayments[index]._id.toString()
 		}
 
+
 		return {
 			payments: dataPayments,
-			filterDate: filterDate
+			filterDate: filterDate,
+			isAdmin: isAdmin
 		}
 	}
 };
@@ -34,11 +49,23 @@ export const load: PageServerLoad = async function({cookies, locals, request}) {
 		throw redirect(302, "/")
 		
 	}
-
+	let dataPayments
 	let result = new Date().toLocaleDateString("es-CL", { year: "numeric", month: "2-digit", day: "2-digit"}).slice(3).split("-")
 	let filterDate = result[1] + "-" + result[0]
 
-	let dataPayments = await payments.find({dateYM: filterDate, ready: true}).sort({date: -1}).toArray();
+	let dataUsers = await users.find({ _id: locals.user.email }).toArray();
+	let isAdmin
+	// TODO: double check query backwards compatibility
+	
+	// console.log(dataUsers[0].admin);
+	
+	if (dataUsers[0].admin == true) {
+		dataPayments = await payments.find({dateYM: filterDate, ready: true}).sort({date: -1}).toArray();
+		isAdmin = true
+	} else {
+		dataPayments = await payments.find({dateYM: filterDate, "paidPlayers.email": { $eq: locals.user.email, $exists: true }}).sort({date: -1}).toArray();
+		isAdmin = false
+	}
 
 	// Formatting Date and Hour
 	for (let index = 0; index < dataPayments.length; index++) {
@@ -51,6 +78,8 @@ export const load: PageServerLoad = async function({cookies, locals, request}) {
 	
 	return{
 			payments: dataPayments,
-			filterDate: filterDate
+			filterDate: filterDate,
+			isAdmin: isAdmin,
+			email: locals.user.email
 	}
 }

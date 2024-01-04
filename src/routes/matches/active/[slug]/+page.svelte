@@ -83,7 +83,7 @@
 			<!-- Inscritos -->
 
 			<!-- Botones -->
-			{#if !joinedWaitlist && attendance < matches[0].quota}
+			{#if !joinedWaitlist && attendance <= matches[0].quota}
 				{#if !joined && attendance < matches[0].quota}
 					<JoinButton action="?/JoinClass" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
 				{/if}
@@ -98,7 +98,7 @@
 			<!-- Lista de espera -->
 
 			{#if !joined && attendance < matches[0].quota}
-				{#if !joinedWaitlist && attendance < matches[0].quota}
+				{#if !joinedWaitlist}
 					<JoinButton action="?/JoinClassWaitList" name={name} email={localsData.email} picture={picture} text={"Inscribirse"}/>
 				{/if}
 				{#if joinedWaitlist}					

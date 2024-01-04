@@ -8,11 +8,11 @@
 	export let data;
 	$: ({payments} = data);	
 
-		// If data is filtered by date, then replace it with the new one
+	// If data is filtered by date, then replace it with the new one
 	if (form !== null) {
 		data = form
 	}
-	
+		
 </script>
 
 <head>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 
-		<FilterByDate filterDate={data.filterDate} />
+		<FilterByDate filterDate={data.filterDate} isAdmin={data.isAdmin} email={data.email}/>
 
 		<div in:fade id="wrapper" style="margin-bottom: 66px"> <!-- wrapper fixes scroll hiding training card -->
 

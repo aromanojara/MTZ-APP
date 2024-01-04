@@ -1,6 +1,8 @@
 <script>
 
 	export let filterDate
+	export let isAdmin
+	export let email
 	let dateForm
 
 </script>
@@ -8,6 +10,8 @@
 <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
 	<form class="date-form" method="post" action="?/FilterByDate" bind:this={dateForm}>
 		<input type="month" name="filterDate" bind:value={filterDate} on:change={() => dateForm.requestSubmit()}>
+		<input type="boolean" name="isAdmin" bind:value={isAdmin} hidden>
+		<input type="text" name="email" bind:value={email} hidden>
 	</form>
 </div>
 

@@ -7,6 +7,10 @@
 	export let date
 	export let leftIcon
 	export let centerIconText
+
+	if (quotaLeft == 1) {
+		centerIconText = centerIconText.slice(0,-1);
+	}
 	
 </script>
 

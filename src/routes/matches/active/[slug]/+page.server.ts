@@ -50,7 +50,7 @@ export const actions = {
 							quotaLeft: 1,
 					},
 					$push: { 
-							players: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
+							mestiDicom: {nombre: name, fecha: fullDate, email: email, picture: picture, sortDate: new Date()}
 					},
 				}
 			);	
@@ -96,18 +96,18 @@ export const actions = {
 		// Check if -1 quota left makes ready = true
 		if (paymentId){
 
-			let inPlayerList = true
+			let mestiDicomList = true
 			let dataPayments = await payments.find({_id: new ObjectId(paymentId)}).toArray();
 			
 			if (dataPayments[0].paidPlayers.length >= 1) {
 				for (let index = 0; index < dataPayments[0].paidPlayers.length; index++) {
 					if (dataPayments[0].paidPlayers[index].email == email) {
-						inPlayerList = false
+						mestiDicomList = false
 					}
 				}
 			}
 			
-			if (inPlayerList) {
+			if (mestiDicomList) {
 				
 				await payments.updateOne(
 					{ _id: new ObjectId(paymentId) },
@@ -116,7 +116,7 @@ export const actions = {
 								quota: -1,
 								quotaLeft: -1,
 						},
-						$pull: { 'players': { email: email } }
+						$pull: { 'mestiDicom': { email: email } }
 					}
 				);	
 

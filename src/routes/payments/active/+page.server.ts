@@ -1,4 +1,5 @@
 import { payments } from '../../../db/payments';
+import { users } from '../../../db/users';
 import type { PageServerLoad } from './$types';
 import { redirect } from "@sveltejs/kit";
 import { error } from "@sveltejs/kit";
@@ -11,8 +12,18 @@ export const load: PageServerLoad = async function({cookies, locals, request}) {
 		
 	}
 
-	let dataPayments = await payments.find({ready: false}).sort({date: 1}).toArray();
+	let dataPayments
+	let dataUsers = await users.find({ _id: locals.user.email }).toArray();
+	
 
+
+	// TODO: If admin change query, admin ready? :O
+	if (dataUsers[0].admin) {		
+		dataPayments = await payments.find({ ready: false }).sort({date: 1}).toArray();
+	} else {
+		dataPayments = await payments.find({"mestiDicom.email": { $eq: locals.user.email, $exists: true }}).sort({date: 1}).toArray();
+	}
+	
 	// Formatting Date and Hour
 	for (let index = 0; index < dataPayments.length; index++) {
 		dataPayments[index].fecha = dataPayments[index].date.toLocaleString("es-CL", {timeZone: 'America/Santiago'}).split(',')[0].replaceAll("-", "/");
