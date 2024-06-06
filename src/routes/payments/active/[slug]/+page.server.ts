@@ -4,6 +4,7 @@ import type { PageServerLoad } from './$types';
 import { ObjectId } from 'mongodb';
 import { redirect } from "@sveltejs/kit";
 import { payments } from '../../../../db/payments';
+import moment from 'moment-timezone';
 
 
 export const actions = {
@@ -20,14 +21,21 @@ export const actions = {
 		const quotaLeft = parseInt(dataPayments[0].quotaLeft) - 1;
 		const paid = parseInt(dataPayments[0].paid) + 1;
 		const quota = parseInt(dataPayments[0].quota);
+		let paymentDate = dataPayments[0].date
 		
 		let date = new Date().toLocaleString("es-CL", {timeZone: 'America/Santiago'})
 		const dia = date.substring(0, 5);
 		const formattedDia = dia.replace("-", "/");
 		const hora = date.substring(12, 17);
 		const fullDate = formattedDia + " " + hora
-					
-		// payment ready, set ready true
+		
+		
+		// think how to make payment ready
+		
+		console.log("paymentDate:", paymentDate);
+		console.log("      ahora:", new Date());
+		// paid == quota && paymentDate >= new Date()
+
 		if (paid == quota) {
 			await payments.updateOne(
 				{ _id: new ObjectId(event.params.slug) },

@@ -14,12 +14,11 @@ export const load: PageServerLoad = async function({cookies, locals, request}) {
 
 	let dataPayments
 	let dataUsers = await users.find({ _id: locals.user.email }).toArray();
-	
-
 
 	// TODO: If admin change query, admin ready? :O
 	if (dataUsers[0].admin) {		
 		dataPayments = await payments.find({ ready: false }).sort({date: 1}).toArray();
+		
 	} else {
 		dataPayments = await payments.find({"mestiDicom.email": { $eq: locals.user.email, $exists: true }}).sort({date: 1}).toArray();
 	}

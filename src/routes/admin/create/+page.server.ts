@@ -45,8 +45,8 @@ export const actions = {
 				quota: 0, // Límite de personas
 				quotaLeft: 0, // Cupos restantes
 				paid: 0,
-				players: [], // Lista de jugadores con plan
 				paidPlayers: [],
+				mestiDicom: [],
 				amount: amount,
 				ready: false
 				})

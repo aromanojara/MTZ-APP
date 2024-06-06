@@ -126,10 +126,15 @@ export const actions = {
 					{ _id: new ObjectId(paymentId) },
 					{
 						$inc:{
-								quota: -1,
-								paid: -1,
+							quota: -1,
+							paid: -1,
 						},
-						$pull: { 'paidPlayers': { email: email } }
+						$pull:{ 
+							'paidPlayers': { email: email } 
+						},
+						$set:{
+							ready: false // Check if missing condition
+						}
 					}
 				);
 
